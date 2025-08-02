@@ -37,16 +37,34 @@
     tr:hover {
       background-color: #f1f1f1;
     }
+    .button-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    #toggleButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #toggleButton:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
   <div class="admin-link">
     <a href="admin-welcome.html">welcome</a>
-    <a href="admin-ongoing.html" >ongoing</a>
+    <a href="admin-ongoing.html">ongoing</a>
     <a href="admin-result.html">result</a>
-    <a href="online.html">online</a> <!-- ✅ New link added -->
-    <a href="set-time.html"> setTime</a> <!-- ✅ New link added -->
+    <a href="online.html">online</a>
+    <a href="set-time.html">setTime</a>
   </div>
+
   <h2>Quiz Results</h2>
   <table>
     <thead>
@@ -63,8 +81,14 @@
     </tbody>
   </table>
 
+  <div class="button-container">
+    <button id="toggleButton" disabled>Some users are yet to submit</button>
+  </div>
+
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbyoL5_Wuef_TKE882CTQfLcBeVpyEThOTA_yVQ9IpayeThqDj3DoA9Vy6wpP8CkWDZ5/exec";
+    let allStats = [];
+    let showingTop10 = false;
 
     async function loadResults() {
       const response = await fetch(scriptURL, {
@@ -75,54 +99,86 @@
 
       const data = await response.json();
       const table = document.getElementById("resultsTable");
+      const toggleButton = document.getElementById("toggleButton");
       table.innerHTML = "";
-      
-      if (data.status === "success") {
-        // Sort by score descending
-        data.stats.sort((a, b) => parseFloat(b.score) - parseFloat(a.score));
 
-        data.stats.forEach(stat => {
-          table.innerHTML += `
-            <tr>
-              <td>${stat.user}</td>
-              <td>${stat.all}</td>
-              <td>${stat.attempt}</td>
-              <td>${stat.correct}</td>
-              <td>${parseInt(stat.score)}%</td>
-            </tr>
-          `;
-        });
+      if (data.status === "success") {
+        allStats = data.stats;
+        const allSubmitted = allStats.every(stat => stat.status === "submitted");
+
+        if (allSubmitted) {
+          toggleButton.disabled = false;
+          toggleButton.textContent = "See Top 10";
+        } else {
+          toggleButton.disabled = true;
+          toggleButton.textContent = "Some users are yet to submit";
+        }
+
+        renderTable(allStats);
       } else {
         table.innerHTML = `<tr><td colspan="5">Error: ${data.message}</td></tr>`;
       }
     }
 
-    // window.onload = loadResults;
-    let intervalId = null;
+    function renderTable(stats) {
+      const table = document.getElementById("resultsTable");
+      table.innerHTML = "";
 
-    function startAutoRefresh() {
-      if (!intervalId) {
-        intervalId = setInterval(loadStats, 15000);
+      stats.sort((a, b) => parseFloat(b.score) - parseFloat(a.score));
+
+      stats.forEach(stat => {
+        const submitted = stat.status === "submitted";
+        table.innerHTML += `
+          <tr style="${!submitted ? 'opacity: 0.6; color: red;' : ''}">
+            <td>${stat.user}</td>
+            <td>${submitted ? stat.all : "Not submitted"}</td>
+            <td>${submitted ? stat.attempt : "—"}</td>
+            <td>${submitted ? stat.correct : "—"}</td>
+            <td>${submitted ? parseInt(stat.score) + "%" : "—"}</td>
+          </tr>
+        `;
+      });
+    }
+
+    async function saveTopTenToBackend(topUsers) {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: JSON.stringify({
+          action: "saveTopTen",
+          users: topUsers
+        })
+      });
+
+      const result = await response.json();
+      if (result.status !== "success") {
+        alert("Failed to save top 10 to backend: " + result.message);
       }
     }
 
-    function stopAutoRefresh() {
-      clearInterval(intervalId);
-      intervalId = null;
-    }
+    document.getElementById("toggleButton").addEventListener("click", async function () {
+      const button = this;
 
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
-        loadStats(); // Refresh immediately when tab is back
-        startAutoRefresh();
+      if (!showingTop10) {
+        const submittedUsers = allStats.filter(stat => stat.status === "submitted");
+        const topUsers = submittedUsers
+          .sort((a, b) => parseFloat(b.score) - parseFloat(a.score))
+          .slice(0, 10);
+
+        renderTable(topUsers);
+        await saveTopTenToBackend(topUsers);
+        button.textContent = "See All Users";
+        showingTop10 = true;
       } else {
-        stopAutoRefresh(); // Pause interval when tab is hidden
+        renderTable(allStats);
+        button.textContent = "See Top 10";
+        showingTop10 = false;
       }
     });
 
+
     window.onload = () => {
-      loadResults();     // Initial load
-      startAutoRefresh(); // Start interval
+      loadResults();
     };
   </script>
 </body>

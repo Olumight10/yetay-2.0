@@ -4,295 +4,889 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Online Quiz</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f4f4f9;
-  }
-  .nav-bar {
-    margin-bottom: 20px;
-  }
-  .nav-bar a {
-    margin-right: 15px;
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-  }
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-  /* Grid of circles */
-  #questionGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(50px,1fr));
-    gap: 15px;
-    max-width: 600px;
-    margin-bottom: 30px;
-  }
-  .circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #ddd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    font-weight: bold;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  .circle.picked {
-    background: #e74c3c; /* red */
-    color: white;
-    cursor: not-allowed;
-  }
-  .circle:hover:not(.picked) {
-    background: #4caf50;
-    color: white;
-  }
+/* === Layout === */
+#online {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
 
-  /* Question container */
-  #questionContainer {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    max-width: 600px;
-  }
-  #questionText {
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  .options label {
-    display: block;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  input[type="radio"] {
-    margin-right: 8px;
-  }
+.sidebar {
+  width: 15%;
+  background-color: #A0D8EF;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  /* Correct/incorrect highlight */
-  .correct {
-    color: green;
-    font-weight: bold;
-  }
-  .incorrect {
-    color: red;
-    font-weight: bold;
-  }
+.main-content {
+  width: 85%;
+  background-color: #213E6D;
+  color: white;
+  padding: 50px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Buttons */
-  .btn {
-    margin-top: 20px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
+/* === Sidebar Content === */
+.yetay2 {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  color: black;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parthead {
+  margin-top: 20px;
+  font-weight: bold;
+  color: black;
+  padding: 10px;
+}
+
+#participant {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 10px;
+}
+
+.flex-box {
+  background: #ffffff33;
+  border-radius: 5px;
+  animation: pulse 1.2s ease-in-out infinite;
+  height: 40px;
+  flex: 1 1 150px; /* Grow/Shrink with a base width of 150px */
+  min-width: 100px; /* Prevent from getting too tiny */
+  max-width: 100%; /* Never exceed container width */
+  box-sizing: border-box;
+}
+
+.f-box{
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #213E6D;
+  background-color: white;
+}
+
+
+.f-box:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.03);
+}
+
+.current-participant {
+  background-color: #213E6D !important;
+  color: white !important;
+}
+
+
+.upper{
+  height: 20%;
+  width: 100%;
+}
+
+/* === First Section === */
+.first-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.logo img {
+  height: 60px;
+  background-color: white;
+}
+
+.yetay-write {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.point {
+  font-size: 16px;
+  margin-left: 5px;
+  vertical-align: sub;
+  background-color: #F3C32F;
+  color: #213E6D;
+  font-weight: bold;
+  width: 30px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.modal_menu {
+  position: relative;
+}
+
+.menu-bar i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* === Nav Modal (initially hidden, toggle via JS) === */
+.nav-bar {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #213E6D;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.nav-bar a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  margin: 15px 0;
+}
+.yetay-detail {
+  display: flex;
+  align-items: flex-end;
+}
+/* === Second Section === */
+.second-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.rounder-text {
+  font-size: 18px;
+}
+
+.per-score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#perScore {
+  width: 50px;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+}
+
+.key-in i {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.quiz-timer {
+  display: none; /* initially hidden */
+  font-size: 18px;
+}
+
+/* === Question Section === */
+.question-section {
+  margin-top: 30px;
+  position: relative;
+}
+
+
+/* Grid */
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+}
+
+.grid-btn {
+  background-color: #ffffff33;
+  color: #000;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.g-btn{
+  background-color: white;
+  cursor: pointer;
+  color: #213E6D;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Confirm Button */
+/* Base style for all buttons */
+/* Button container aligned to the right */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap; /* optional: handles small screens */
+}
+
+/* Shared button style */
+/* Group container aligned to the right */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Shared button style */
+.bot {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background-color: #3a6cf4;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+/* Hover and active states */
+.bot:hover:not(.disabled) {
+  background-color: #2f55c0;
+}
+
+.bot:active:not(.disabled) {
+  transform: scale(0.97);
+}
+
+/* Disabled state */
+.bot.disabled {
+  background-color: #ccc;
+  color: #888;
+  pointer-events: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Hidden by default */
+.hidden {
+  display: none !important;
+}
+
+
+
+/* === Animation: Pulse Placeholder === */
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
   }
-  #confirmBtn {
-    background-color: #4caf50;
-    color: white;
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
   }
-  #confirmBtn:disabled {
-    background-color: #a5d6a7;
-    cursor: not-allowed;
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
   }
-  #backBtn {
-    background-color: #ccc;
-    color: #333;
-    margin-left: 10px;
-  }
+}
+
+.question-card {
+  background: #213E6D;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #f5f5f5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+  border-left: 6px solid #F3C32F;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #F3C32F;
+  font-weight: 600;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option {
+  background: #2e4f8a;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-left: 5px solid transparent;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+
+.option-letter {
+  font-weight: bold;
+  color: #F3C32F;
+  flex-shrink: 0;
+}
+
+.option-text {
+  flex-grow: 1;
+}
+
+
+.correct-highlight {
+  background-color: #F3C32F !important;
+  color: #213E6D !important;
+  font-weight: bold;
+  box-shadow: 0 0 8px #F3C32F;
+}
+
+.correct-highlight .option-letter {
+  color: #213E6D !important;
+}
+
+.scoreboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #213E6D;
+  color: white;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.scoreboard-table th,
+.scoreboard-table td {
+  padding: 7px;
+  border: 1px solid #fff;
+}
+
+.score-box {
+  background: white;
+  width: 25px;
+  height: 25px;
+  margin: auto;
+  border-radius: 8px;
+}
+
+.highlighted-participant {
+  background-color: #F3C32F !important;
+  color: #213E6D;
+  font-weight: bold;
+}
+
+.adjuster-tools {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
 </style>
 </head>
 <body>
+  <div id="online">
+    <div class="sidebar">
+      <p class="yetay2">Yetay 2.0</p>
+      <p class="parthead">Participants</p>
+      <div class="part" id="participant">
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+      </div>
 
-  <div class="nav-bar">
-    <a href="admin-welcome.html">Welcome</a>
-    <a href="admin-ongoing.html" >ongoing</a>
-    <a href="admin-result.html">Result</a>
-    <a href="online.html">Online Exam</a>
-    <a href="set-time.html"> setTime</a> <!-- ✅ New link added -->
-  </div>
+    </div>
+    <div class="main-content">
+      <div class="upper">
+        <div class="first-section">
+          <div class="modal_menu">
+            <div class="menu-bar">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="nav-bar">
+              <a href="admin-welcome.html">Welcome</a>
+              <a href="admin-ongoing.html" >ongoing</a>
+              <a href="admin-result.html">Result</a>
+              <a href="online.html">Online Exam</a>
+              <a href="set-time.html"> setTime</a> <!-- ✅ New link added -->
+            </div>
+          </div>
+          <div class="yetay-detail">
+            <div class="logo">
+              <img src="https://cdn.glitch.global/75a24ea2-773d-456a-8abd-1c76671f333c/yetay_white_logo.png?v=1748084558240" alt="Yetay Logo" />
+            </div>
+            <p class="yetay-write">Yetay Bible Quiz</p>
+            <div class="point">2.0</div>
+          </div>
+          <div class="empty">
 
-  <h2>Online Quiz - Pick a Question</h2>
+          </div>
+        </div>
 
-  <!-- Grid of circles -->
-  <div id="questionGrid"></div>
+        <div class="second-section">
+          <div class="rounder">
+            <div class="rounder-text">Round <span class="no">1</span></div>
+          </div>
+          <div class="per-score">
+            <p>Per score:</p>
+            <input type="text" id="perScore" value="1" />
+            <div class="key-in">
+                <i class="fa-solid fa-square-check"></i>
+            </div>
+          </div>
+          <div class="quiz-timer" id="quizTimer">Time: --:--</div>
+        </div>
 
-  <!-- Question and options -->
-  <div id="questionContainer" style="display:none;">
-    <div id="questionText"></div>
-    <form id="optionsForm">
-      <div class="options"></div>
-    </form>
-    <button id="confirmBtn" class="btn" disabled>Confirm Answer</button>
-    <button id="backBtn" class="btn">Back to Questions</button>
+      </div>
+
+      <div class="question-section">
+        <div class="question-grid" id="question-grid">
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+          <div class="grid-btn"></div>
+        </div>
+        <div class=" quesion-view" id="question-view"></div>
+        <div class="answer-view" id="answer-view"></div>
+        <div class="scoreboard-view" id="scoreboard-view"></div>
+        <div class="button-group">
+          <div class="bot hidden" id="confirm-btn" onclick="handleConfirm()">Confirm</div>
+          <div class="bot hidden" id="answer-btn" onclick="handleSeeAnswer()">See Answer</div>
+          <div class="bot hidden" id="scoreboard-btn" onclick="showScoreboard()">Scoreboard</div>
+          <div class="bot hidden" id="grid-view" onclick="showGrid()">Grid View</div>
+        </div>
+      </div>
   </div>
 
 <script>
   const scriptURL = "https://script.google.com/macros/s/AKfycbyoL5_Wuef_TKE882CTQfLcBeVpyEThOTA_yVQ9IpayeThqDj3DoA9Vy6wpP8CkWDZ5/exec"; // your script URL here
+const questionContainer = document.getElementById("question-view");
+const gridContainer = document.getElementById("question-grid");
+const confirmBtn = document.getElementById("confirm-btn");
+const answerBtn = document.getElementById("answer-btn");
+const scoreboardBtn = document.getElementById("scoreboard-btn");
+const gridViewBtn = document.getElementById("grid-view");
+let currentQuestionIndex = null;
 
-  let questions = [];
-  let currentQuestion = null;
-  let selectedAnswer = null;
+let currentParticipant = null;
+let questions = [];
+let participants = [];
 
-  // Load all questions from backend
-  async function loadQuestions() {
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: JSON.stringify({ action: 'getOnlineQuestions'})
-      });
-      const data = await response.json();
-      if(data.status === 'success') {
-        questions = data.questions;
-        renderQuestionGrid();
-      } else {
-        alert("Failed to load questions: " + data.message);
-      }
-    } catch (error) {
-      alert("Error fetching questions: " + error.message);
+
+async function loadQuestions() {
+  try {
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify({ action: 'getOnlineQuestions' })
+    });
+
+    const data = await response.json();
+
+    if (data.status === 'success') {
+      questions = data.questions;
+      participants = data.participants;
+
+      loadParticipants(participants);
+
+      populateGrid(questions);
+
+    // Load hidden question views
+    questionContainer.innerHTML = "";
+
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.classList.add("question-box");
+      div.id = `question-${i}`;
+      div.style.display = "none";
+
+      div.innerHTML = `
+        <div class="question-card">
+          <p class="question-text"><strong>Q${i + 1}:</strong> ${q["Question Text"] || '[No Question]'}</p>
+          <div class="options">
+            ${['A', 'B', 'C', 'D'].map(letter => `
+              <div class="option">
+                <span class="option-letter">${letter}.</span>
+                <span class="option-text">${q[`Option ${letter}`] || '[Missing]'}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      questionContainer.appendChild(div);
+    });
+
+    // Show the button
+
+
+    } else {
+      alert("Failed to load questions: " + data.message);
     }
+  } catch (error) {
+    alert("Error fetching questions: " + error.message);
   }
+}
 
-  // Render grid of circles with question numbers
-  function renderQuestionGrid() {
-    const grid = document.getElementById('questionGrid');
-    grid.innerHTML = '';
-    questions.forEach((q, idx) => {
-      const circle = document.createElement('div');
-      circle.className = 'circle';
-      circle.textContent = idx + 1;
 
-      // Mark circle red if question is picked (picked_ans not empty)
-      if (q.Picked_Ans && q.Picked_Ans.trim() !== '') {
-        circle.classList.add('picked');
-      }
 
-      // Click only if not picked
-      circle.onclick = () => {
-        if (!circle.classList.contains('picked')) {
-          openQuestion(idx);
-        }
+function loadParticipants(participants) {
+  const partBox = document.getElementById("participant"); // adjust ID if needed
+  partBox.innerHTML = ""; // clear previous
+
+  participants.forEach((p, i) => {
+    const div = document.createElement("div");
+    div.className = "f-box";
+    div.textContent = p;
+
+    // First participant is selected by default
+    if (i === 0) {
+      currentParticipant = p;
+      div.classList.add("current-participant");
+    }
+
+    // Click event to update currentParticipant
+    div.addEventListener("click", () => {
+      currentParticipant = p;
+
+      // Remove current style from all
+      const allBoxes = partBox.querySelectorAll(".f-box");
+      allBoxes.forEach(box => box.classList.remove("current-participant"));
+
+      // Add style to clicked one
+      div.classList.add("current-participant");
+
+    });
+
+    partBox.appendChild(div);
+  });
+}
+
+function populateGrid(questions) {
+  gridContainer.innerHTML = "";
+  questionContainer.style.display = 'none'; // Hide question container initially
+  confirmBtn.classList.remove('hidden');
+  confirmBtn.classList.add('disabled');
+
+  questions.forEach((q, i) => {
+    const gridBtn = document.createElement("div");
+    gridBtn.className = "g-btn";
+    gridBtn.setAttribute('role', 'button');
+    gridBtn.setAttribute('tabindex', '0');
+    gridBtn.textContent = i + 1;
+    gridBtn.dataset.index = i;
+
+    if (q.Picked_Ans) {
+      gridBtn.onclick = () => {
+        currentQuestionIndex = i;
+        confirmBtn.classList.add('disabled'); 
+        resetUnmarkedGrids(i);
       };
-
-      grid.appendChild(circle);
-    });
-
-    document.getElementById('questionContainer').style.display = 'none';
-    grid.style.display = 'grid';
-  }
-
-  // Open question view
-  function openQuestion(index) {
-    currentQuestion = questions[index];
-    selectedAnswer = null;
-
-    document.getElementById('questionGrid').style.display = 'none';
-
-    const container = document.getElementById('questionContainer');
-    const questionText = document.getElementById('questionText');
-    const optionsDiv = container.querySelector('.options');
-    const confirmBtn = document.getElementById('confirmBtn');
-
-    questionText.textContent = `Q${index + 1}: ${currentQuestion["Question Text"]}`;
-
-    optionsDiv.innerHTML = '';
-    ['A', 'B', 'C', 'D'].forEach(letter => {
-      const optionText = currentQuestion[`Option ${letter}`];
-      const id = `option_${letter}`;
-
-      // Create radio option
-      const label = document.createElement('label');
-      label.htmlFor = id;
-      label.textContent = `${letter}. ${optionText}`;
-
-      const input = document.createElement('input');
-      input.type = 'radio';
-      input.name = 'answer';
-      input.value = letter;
-      input.id = id;
-
-      input.onchange = () => {
-        selectedAnswer = input.value;
-        confirmBtn.disabled = false;
+    } else {
+      gridBtn.onclick = () => {
+        activateGrid(i);
       };
+    }
 
-      label.prepend(input);
-      optionsDiv.appendChild(label);
-    });
+    gridContainer.appendChild(gridBtn);
 
-    // Reset button states
-    confirmBtn.disabled = true;
-    confirmBtn.style.display = 'inline-block';
-    document.getElementById('backBtn').style.display = 'inline-block';
+    if (q.Picked_Ans) {
+      markedGrid(i); // mark green
+    }
+  });
+}
 
-    // Remove any previous coloring
-    optionsDiv.querySelectorAll('label').forEach(l => {
-      l.classList.remove('correct', 'incorrect');
-    });
+function activateGrid(index) {
+  // Reset only buttons that are NOT marked green
+  document.querySelectorAll(".g-btn").forEach((btn, i) => {
+    const isMarked = btn.style.backgroundColor === "green" || btn.classList.contains("marked-green");
+    if (!isMarked && i !== index) {
+      btn.style.backgroundColor = "white";
+      btn.style.color = "#213E6D";
+    }
+  });
 
-    container.style.display = 'block';
+  const btn = gridContainer.children[index];
+  btn.style.backgroundColor = "#F3C32F";
+  btn.style.color = "#213E6D";
+  currentQuestionIndex = index;
+  confirmBtn.classList.remove('disabled');
+}
+
+function markedGrid(index) {
+  const btn = gridContainer.children[index];
+  btn.style.backgroundColor = "green";
+  btn.style.color = "white";
+}
+
+
+// Optional: Reset non-marked grids (used by picked ones to reset others)
+function resetUnmarkedGrids(activeIndex) {
+  document.querySelectorAll(".g-btn").forEach((btn, i) => {
+    if (btn.style.backgroundColor !== "green" && i !== activeIndex) {
+      btn.style.backgroundColor = "white";
+      btn.style.color = "#213E6D";
+    }
+  });
+}
+
+async function handleConfirm() {
+  // 1. Hide the grid view
+  gridContainer.style.display = "none";
+  questionContainer.style.display = "block";
+  // 4. Get current question object
+  const currentQuestion = questions[currentQuestionIndex];
+  markedGrid(currentQuestionIndex);
+  // 3. Show only the current question
+  const currentBox = document.getElementById(`question-${currentQuestionIndex}`);
+  if (currentBox) {
+    currentBox.style.display = "block";
   }
+  currentQuestion.Picked_Ans = "yes";
+  // 8. Hide confirm button and show "See Answer"
+  confirmBtn.classList.add('hidden');
+  answerBtn.classList.remove('hidden');
 
-  // On confirm button click
-  document.getElementById('confirmBtn').addEventListener('click', async () => {
-    if (!selectedAnswer) return;
 
-    const confirmBtn = document.getElementById('confirmBtn');
-    confirmBtn.disabled = true;
-
-    // Highlight correct and incorrect answers
-    const optionsDiv = document.querySelector('.options');
-    const correctAnswer = currentQuestion["Correct Answer"];
-    optionsDiv.querySelectorAll('label').forEach(label => {
-      const input = label.querySelector('input');
-      if (input.value === correctAnswer) {
-        label.classList.add('correct');
-      }
-      if (input.value === selectedAnswer && selectedAnswer !== correctAnswer) {
-        label.classList.add('incorrect');
-      }
-      input.disabled = true;
+  // 5. Save picked answer to backend
+  try {
+    const updateResponse = await fetch(scriptURL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: JSON.stringify({
+        action: 'updatePickedAns',
+        questionId: currentQuestion['Question ID'],
+        pickedAns: "yes",
+        sheetName: 'Online'
+      })
     });
 
-    // Save picked answer to backend
-    try {
-      const updateResponse = await fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: JSON.stringify({
-          action: 'updatePickedAns',
-          questionId: currentQuestion['Question ID'],
-          pickedAns: selectedAnswer,
-          sheetName: 'Online'
-        })
-      });
-      const updateData = await updateResponse.json();
+    const updateData = await updateResponse.json();
 
-      if (updateData.status === 'success') {
-        // Update local data & grid highlight
-        currentQuestion.Picked_Ans = selectedAnswer;
-        document
-          .querySelectorAll('.circle')[currentQuestion['Question ID'] - 1]
-          .classList.add('picked');
-      } else {
+    if (updateData.status != 'success') {
         alert('Failed to update picked answer: ' + updateData.message);
-      }
-    } catch (error) {
-      alert('Error updating picked answer: ' + error.message);
-    }
+    } 
+  } catch (error) {
+    alert('Error updating picked answer: ' + error.message);
+  }
+
+}
+
+
+
+function handleSeeAnswer() {
+  const box = document.getElementById(`question-${currentQuestionIndex}`);
+  if (!box) return;
+
+  const currentQuestion = questions[currentQuestionIndex];
+
+  const correctLetter = currentQuestion["Correct Answer"];
+
+  // Reset all option styles
+  box.querySelectorAll('.option').forEach(option => {
+    option.classList.remove('correct-highlight');
   });
 
-  // Back to grid button
-  document.getElementById('backBtn').addEventListener('click', () => {
-    document.getElementById('questionContainer').style.display = 'none';
-    renderQuestionGrid();
+  // Highlight correct answer only
+  const correctOption = [...box.querySelectorAll('.option')].find(option => {
+    const letter = option.querySelector('.option-letter')?.textContent?.trim().charAt(0);
+    return letter === correctLetter;
   });
+
+  if (correctOption) {
+    correctOption.classList.add('correct-highlight');
+  }
+
+
+  // Hide See Answer button
+  document.getElementById('answer-btn')?.classList.add('hidden');
+
+  // Show Scoreboard & Grid buttons
+  document.getElementById('scoreboard-btn')?.classList.remove('hidden');
+
+
+}
+
+
+function showScoreboard() {
+  const rounding = 5;
+  const per_score = 3;
+  let currentRound = 1;
+
+  const currentBox = document.getElementById(`question-${currentQuestionIndex}`);
+  if (currentBox) {
+    currentBox.style.display = "none";
+  }
+
+  questionContainer.style.display = "none";
+
+  const scoreboardContainer = document.getElementById("scoreboard-view");
+  scoreboardContainer.innerHTML = ""; // Clear previous content
+  scoreboardContainer.style.display = "block";
+
+  const table = document.createElement("table");
+  table.className = "scoreboard-table";
+
+  // Create table header
+  const header = document.createElement("tr");
+  for (let i = 1; i <= rounding; i++) {
+    const th = document.createElement("th");
+    th.textContent = `Round ${i}`;
+    header.appendChild(th);
+  }
+
+  const totalTh = document.createElement("th");
+  totalTh.textContent = "Total Score";
+  header.appendChild(totalTh);
+
+  const adjusterTh = document.createElement("th");
+  adjusterTh.textContent = "Adjuster";
+  header.appendChild(adjusterTh);
+
+  table.appendChild(header);
+
+  // Create table rows for each participant
+  console.log("Current Participant:", currentParticipant);
+  console.log("Participants:", participants);
+  participants.forEach(p => {
+    const tr = document.createElement("tr");
+    tr.dataset.name = p;
+
+    if (p === currentParticipant) {
+      tr.classList.add("highlighted-participant");
+    }
+
+    // Round score cells
+    for (let i = 0; i < rounding; i++) {
+      const td = document.createElement("td");
+      td.className = "score-cell";
+      td.innerHTML = `<div class="score-box" data-round="${i + 1}"></div>`;
+      tr.appendChild(td);
+    }
+
+    // Total score cell
+    const totalTd = document.createElement("td");
+    totalTd.className = "total-score";
+    totalTd.textContent = "0";
+    tr.appendChild(totalTd);
+
+    // Adjuster tools
+    const adjusterTd = document.createElement("td");
+    adjusterTd.className = "adjuster-cell";
+    if (p === currentParticipant) {
+      adjusterTd.innerHTML = `
+        <div class="adjuster-tools">
+          <i class="fa fa-eye"></i>
+          <i class="fa fa-play" onclick="adjustScore('${p}', ${currentRound}, ${per_score})"></i>
+        </div>
+      `;
+    }
+    tr.appendChild(adjusterTd);
+
+    table.appendChild(tr);
+  });
+
+  scoreboardContainer.appendChild(table);
+
+
+  // Hide See Answer button
+  document.getElementById('scoreboard-btn')?.classList.add('hidden');
+
+  // Show Scoreboard & Grid buttons
+  document.getElementById('grid-view')?.classList.remove('hidden');
+}
+
+
+function adjustScore(name, round, score) {
+  const row = [...document.querySelectorAll("tr")].find(tr => tr.dataset.name === name);
+  if (!row) return;
+
+  const scoreBox = row.querySelector(`.score-box[data-round="${round}"]`);
+  if (scoreBox && scoreBox.textContent === "") {
+    scoreBox.textContent = score;
+    scoreBox.style.backgroundColor = "transparent"; // Makes it see-through
+
+    const totalCell = row.querySelector(".total-score");
+    let total = parseInt(totalCell.textContent) || 0;
+    totalCell.textContent = total + score;
+  }
+}
+
+
+function showGrid() {
+  const scoreboardContainer = document.getElementById("scoreboard-view");
+  scoreboardContainer.style.display = "none";
+  gridContainer.style.display = "grid";
+
+  gridViewBtn.classList.add('hidden');
+
+  confirmBtn.classList.remove('hidden');
+  confirmBtn.classList.add('disabled');
+
+  currentQuestionIndex = null;
+}
 
   // Load questions on page load
   window.onload = loadQuestions;

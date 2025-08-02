@@ -71,9 +71,8 @@
       height: 300px;
     }
     #quizForm {
-      display: none;
-      height: 100vh;
       display: flex;
+      height: 100vh;
     }
     .sidebar {
       width: 20%;
@@ -244,6 +243,11 @@
       background-color: #005f87;
     }
 
+    .end-screen button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
     .quiz-timer {
       color: white;
       font-weight: bold;
@@ -252,6 +256,38 @@
       border-radius: 8px;
       font-size: 14px;
       display: none;
+    }
+    .error-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .error-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+    }
+
+    .error-content h3 {
+      margin-top: 0;
+      color: #d33;
+    }
+
+    .error-content p {
+      color: #333;
+      font-size: 16px;
     }
 
   </style>
@@ -297,14 +333,21 @@
     <div id="quizSubmittedMsg" class="end-screen" style="display: none;">
       <p id="submittedUser"></p>
       <p>You have successfully submitted your quiz.</p>
-      <button onclick="goToScore()">See Score</button>
+      <button onclick="goToScore()" id="subbtn">See Score</button>
     </div>
 
     <!-- Time Up Message -->
     <div id="timeUpMsg" class="end-screen" style="display: none;">
       <p id="timeUpUser"></p>
       <p>Time is up. Your quiz has been submitted automatically.</p>
-      <button onclick="goToScore()">See Score</button>
+      <button onclick="goToScore()" id="timbtn">See Score</button>
+    </div>
+
+    <div class="error-modal" id="errorModal">
+      <div class="error-content">
+        <h3 id="errorTitle">⚠️ Error</h3>
+        <p id="errorMessage">An error occurred.</p>
+      </div>
     </div>
 
   <script>
@@ -319,7 +362,14 @@
     const quizTimer = document.getElementById('quizTimer');
     const griddemo = document.getElementById('gridDemo');
     const questionPlaceholder = document.getElementById('questionPlaceholder');
+    const subbtn = document.getElementById('subbtn');
+    const timbtn = document.getElementById('timbtn');
 
+    subbtn.disabled = true;
+    timbtn.disabled = true;
+
+    let lastAnswerData = null; // Store last answer data for retry  
+    let submitCheck = false; // To track if quiz is submitted
     let loadedQuestions = [];
     let currentQuestion = 0;
     const quizUser = localStorage.getItem("quizUser") || prompt("Enter your username:");
@@ -371,7 +421,7 @@
           prevBtn.disabled = false;
           nextBtn.disabled = false;
           quizSubmitBtn.disabled = false;
-          quizForm.style.display = 'flex';
+          
           showCurrentQuestion();
           checkQuizStart(); // 30 seconds for demo
         } else {
@@ -409,18 +459,43 @@
       }
     }
 
-    
-    function handleAnswerChange(id, picked, i) {
+
+
+    async function handleAnswerChange(id, picked, i) {
       markQuestionAnswered(i);
-      fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: JSON.stringify({
-          action: "submitSingleAnswer",
-          username: localStorage.getItem("quizUser"),
-          answers: [{ id, picked }]
-        })
-      });
+      
+      const payload = {
+        action: "submitSingleAnswer",
+        username: localStorage.getItem("quizUser"),
+        answers: [{ id, picked }]
+      };
+
+      try {
+        const response = await fetch(scriptURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (result.status !== "success") {
+          showError("Server Error", "⚠️ Something went wrong while saving your answer.");
+          saveToUnsavedAnswers(payload);
+        } else {
+          lastAnswerData = null;
+          retryUnsavedAnswers();
+        }
+
+      } catch (err) {
+        if (!navigator.onLine) {
+          
+          showError("No Internet", "⚠️ Please check your internet connection.");
+          saveToUnsavedAnswers(payload);
+          lastAnswerData = { id, picked, i }; // Store for retry
+          monitorNetworkStatus();
+        } else {
+          showError("Fetch Error", err.message);
+        }
+      }
     }
 
     function populateGrid(total) {
@@ -480,7 +555,76 @@
 
     function goToScore() {
       window.location.href = 'user-score.html';
-}
+    }
+
+    function showError(title, message) {
+      errorTitle.textContent = title;
+      errorMessage.textContent = message;
+      errorModal.style.display = "flex";
+    }
+
+    function monitorNetworkStatus() {
+      const interval = setInterval(() => {
+        if (navigator.onLine) {
+          errorTitle.textContent = "✅ Back Online";
+          errorMessage.textContent = "Internet connection restored.";
+          setTimeout(() => errorModal.style.display = "none", 2000);
+          clearInterval(interval);
+
+          retryUnsavedAnswers(); // Handle stored answers first
+
+          // Retry last unsaved click if it's still available
+          if (lastAnswerData) {
+            const { id, picked, i } = lastAnswerData;
+            lastAnswerData = null; // Clear after retrying
+            handleAnswerChange(id, picked, i);
+          }
+          if (submitCheck) {
+            submitQuiz(); // Retry submission if it was pending
+            submitCheck = false; // Reset after retry
+          } 
+        }
+      }, 2000);
+    }
+
+
+    function saveToUnsavedAnswers(data) {
+      let queue = JSON.parse(localStorage.getItem("unsavedAnswers") || "[]");
+
+      // Prevent duplicates by comparing question id
+      const exists = queue.some(item => item.answers[0].id === data.answers[0].id);
+      if (!exists) {
+        queue.push(data);
+        localStorage.setItem("unsavedAnswers", JSON.stringify(queue));
+      }
+    }
+
+    async function retryUnsavedAnswers() {
+      let queue = JSON.parse(localStorage.getItem("unsavedAnswers") || "[]");
+      if (!queue.length) return;
+
+      const newQueue = [];
+
+      for (let payload of queue) {
+        try {
+          const response = await fetch(scriptURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          if (result.status !== "success") {
+            newQueue.push(payload); // Still failed, keep it
+          }
+
+        } catch (err) {
+          newQueue.push(payload); // Retry later
+        }
+      }
+      // Save only failed ones again
+      localStorage.setItem("unsavedAnswers", JSON.stringify(newQueue));
+    }
 
 
     function startEndCountdown(endTime) {
@@ -503,36 +647,62 @@
       }, 1000);
     }
 
-  quizForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const confirmSubmit = confirm("Are you sure you want to submit your quiz?");
-    if (confirmSubmit) {
-      showQuizSubmitted(quizUser);
-      submitQuiz(); // Manual submit
-    };
-  });
 
-  async function submitQuiz() {
-    const quizUser = localStorage.getItem("quizUser");
-    const pickedAnswers = [];
 
-    loadedQuestions.forEach((q, i) => {
-      const selected = document.querySelector(`input[name="q${i}"]:checked`);
-      pickedAnswers.push({ id: q.id, picked: selected ? selected.value : "" });
+    quizForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const confirmSubmit = confirm("Are you sure you want to submit your quiz?");
+      if (confirmSubmit) {
+        showQuizSubmitted(quizUser);
+        submitQuiz(); // Manual submit
+      };
     });
 
-    const response = await fetch(scriptURL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: JSON.stringify({
+    async function submitQuiz() {
+      const quizUser = localStorage.getItem("quizUser");
+      const pickedAnswers = [];
+
+      loadedQuestions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        pickedAnswers.push({ id: q.id, picked: selected ? selected.value : "" });
+      });
+
+      const payload = {
         action: "submitAnswers",
         username: quizUser,
         answers: pickedAnswers
-      })
-    });
+      };
 
+      try {
+        const response = await fetch(scriptURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: JSON.stringify(payload)
+        });
 
-  }
+        const result = await response.json();
+
+        if (result.status === "success") {
+          subbtn.disabled = false;
+          timbtn.disabled = false;
+          submitCheck = false; // Set to true to indicate submission attempt
+        } else {
+          saveToUnsavedAnswers(payload); // Reuse the same helper
+          showError("Submission Error", "⚠️ Failed to submit your quiz. Please try again.");
+        }
+
+      } catch (err) {
+        if (!navigator.onLine) {
+          showError("No Internet", "⚠️ You're offline. Your answers could not be submitted.");
+          saveToUnsavedAnswers(payload); // Reuse the same helper
+          submitCheck = true; // Set to true to indicate submission attempt
+          monitorNetworkStatus();        // Auto-retry later
+
+        } else {
+          showError("Fetch Error", `⚠️ ${err.message}`);
+        }
+      }
+    }
 
   </script>
 </body>

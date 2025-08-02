@@ -103,30 +103,37 @@
       const quizUser = localStorage.getItem("quizUser") || prompt("Enter your username:");
       document.getElementById('userDisplay').textContent = `${quizUser}!`;
       
-
-
       const response = await fetch(scriptURL, {
         method: "POST",
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: JSON.stringify({ action: "getUserStats" })
+        body: JSON.stringify({
+          action: "GetSingleUserStat",
+          user: quizUser
+        })
       });
 
       const data = await response.json();
 
       if (data.status === "success") {
-        const userStat = data.stats.find(s => s.user === quizUser);
-        if (userStat) {
+        const userStat = data.data; // no longer inside `stats[]`
+
+        if (userStat.status === "submitted") {
           document.getElementById("all").querySelector("p").textContent = userStat.all;
           document.getElementById("attempt").querySelector("p").textContent = userStat.attempt;
           document.getElementById("correct").querySelector("p").textContent = userStat.correct;
           document.getElementById("score").querySelector("p").textContent = userStat.score + "%";
           localStorage.removeItem("quizUser");
         } else {
-          alert("User not found in results.");
+          document.getElementById("all").querySelector("p").textContent = "Quiz not submitted yet.";
+          document.getElementById("attempt").querySelector("p").textContent = "N/A";
+          document.getElementById("correct").querySelector("p").textContent = "N/A";
+          document.getElementById("score").querySelector("p").textContent = "N/A";
         }
+
       } else {
         alert("Error fetching result: " + data.message);
       }
+
     }
 
     window.onload = loadUserScore;
