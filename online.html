@@ -23,47 +23,161 @@
 
 .sidebar {
   width: 15%;
-  background-color: #A0D8EF;
+  min-width: 200px;
+  height: 100vh;
+  background-color: #A0D8EF; /* DO NOT CHANGE */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1.2rem;
+  overflow: hidden;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.yetay2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2A2D34; /* Deep neutral */
+  margin-bottom: 0.8rem;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+.parthead {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #37474F; /* Slate gray */
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #90A4AE; /* Cool slate border */
+  padding-bottom: 0.3rem;
+  text-align: center;
+  width: 100%;
+}
+
+#participant {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 2px;
+  padding-left: 2px;
+  scrollbar-width: none;
+}
+#participant::-webkit-scrollbar {
+  display: none;
+}
+
+.f-box {
+  background-color: #546E7A; /* Blue gray */
+  color: #ECEFF1; /* Off-white */
+  font-weight: 500;
+  padding: 0.7rem;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+.f-box:hover {
+  background-color: #455A64; /* Deeper gray-blue */
+  transform: translateY(-1px) scale(1.02);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.current-participant {
+  background-color: #213E6D !important; /* DO NOT CHANGE */
+  color: #ffffff !important;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+.current-participant {
+  animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+
+.modal_menu {
+  width: 85%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+  animation: slideIn 0.4s ease forwards;
+  color: white;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.3);
+  padding-top: 60px;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 40px;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: #A0D8EF;
+  font-size: 1.2em;
+  transition: 0.3s;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-bar a:hover {
+  color: white;
+  border-bottom: 1px solid #A0D8EF;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  color: #A0D8EF;
+  font-size: 1.5em;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 .main-content {
   width: 85%;
   background-color: #213E6D;
   color: white;
-  padding: 50px;
+  padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-}
-
-/* === Sidebar Content === */
-.yetay2 {
-  font-size: 20px;
-  font-weight: bold;
-  padding: 10px;
-  color: black;
-  height: 20%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.parthead {
-  margin-top: 20px;
-  font-weight: bold;
-  color: black;
-  padding: 10px;
-}
-
-#participant {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  margin-top: 10px;
 }
 
 .flex-box {
@@ -77,33 +191,7 @@
   box-sizing: border-box;
 }
 
-.f-box{
-  height: 40px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #213E6D;
-  background-color: white;
-}
-
-
-.f-box:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.03);
-}
-
-.current-participant {
-  background-color: #213E6D !important;
-  color: white !important;
-}
-
-
 .upper{
-  height: 20%;
   width: 100%;
 }
 
@@ -112,6 +200,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
 
@@ -138,41 +227,20 @@
   text-align: center;
 }
 
-.modal_menu {
-  position: relative;
-}
+
 
 .menu-bar i {
   font-size: 20px;
   cursor: pointer;
 }
 
-/* === Nav Modal (initially hidden, toggle via JS) === */
-.nav-bar {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: #213E6D;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
 
-.nav-bar a {
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-  margin: 15px 0;
-}
+
 .yetay-detail {
   display: flex;
   align-items: flex-end;
 }
-/* === Second Section === */
+
 .second-section {
   display: flex;
   align-items: center;
@@ -183,12 +251,16 @@
 
 .rounder-text {
   font-size: 18px;
+  color: #F3C32F;
+  font-weight: bold;
+
 }
 
 .per-score {
   display: flex;
   align-items: center;
   gap: 10px;
+  display: none;
 }
 
 #perScore {
@@ -196,16 +268,45 @@
   padding: 5px;
   border: none;
   border-radius: 4px;
+  text-align: center;
+}
+
+.per-time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+
+#perTime {
+  width: 50px;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
 }
 
 .key-in i {
   font-size: 18px;
   cursor: pointer;
+  color: #F3C32F;
 }
 
 .quiz-timer {
-  display: none; /* initially hidden */
+  display: none; /* shown on trigger */
   font-size: 18px;
+  color: #F3C32F;
+  font-weight: bold;
+  background-color: #222;
+  padding: 6px 12px;
+  border-radius: 8px;
+  width: fit-content;
+  text-align: center;
+}
+
+.detime {
+  color: white;
+  font-weight: bold;
 }
 
 /* === Question Section === */
@@ -253,7 +354,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
   flex-wrap: wrap; /* optional: handles small screens */
 }
 
@@ -263,7 +364,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Shared button style */
@@ -314,7 +415,7 @@
   50% {
     opacity: 1;
     transform: scale(1.05);
-  }
+  } 
   100% {
     opacity: 0.6;
     transform: scale(1);
@@ -381,43 +482,106 @@
   color: #213E6D !important;
 }
 
-.scoreboard-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #213E6D;
-  color: white;
+
+
+
+
+.time-up {
   text-align: center;
-  font-family: sans-serif;
-}
-
-.scoreboard-table th,
-.scoreboard-table td {
-  padding: 7px;
-  border: 1px solid #fff;
-}
-
-.score-box {
-  background: white;
-  width: 25px;
-  height: 25px;
-  margin: auto;
-  border-radius: 8px;
-}
-
-.highlighted-participant {
-  background-color: #F3C32F !important;
-  color: #213E6D;
+  padding: 2rem;
+  background: #2b2b2b; /* dark background for contrast */
+  border: 2px solid #F3C32F; /* your main accent yellow */
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1.5rem;
   font-weight: bold;
+  display: none; /* Hidden by default */
+  animation: fadeInScale 0.5s ease-in-out forwards;
 }
 
-.adjuster-tools {
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* Gaps between rows */
+#scoreboard {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  display: none; /* Hidden by default */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.table-header {
+  background: #213E6D;
+  color: #F3C32F;
+  font-weight: bold;
+  border-left: 6px solid #F3C32F;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* subtle depth below */
+  z-index: 1;
+}
+
+
+#scoreboard thead th {
+  padding: 0.4rem;
+  text-align: center;
+}
+
+/* Regular rows */
+.score-row {
+  background: #2e4f8a;
+  color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.score-row td {
+  padding: 0.4rem;
+  text-align: center;
+}
+
+/* Highlighted participant (JS will toggle this) */
+.score-row.highlighted {
+  background: #2b2b2b; /* dark background for contrast */
+  border: 2px solid #F3C32F; /* your main accent yellow */
+  color: #F3C32F;
+  font-weight: bold;
+  animation: fadeInScale 0.5s ease-in-out forwards;
+}
+
+/* Adjuster cell layout */
+.adjuster-cell {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  font-size: 20px;
-  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+/* Eye icons */
+.eye-toggle {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Tools */
+.tools {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.eye-toggle, .tools span {
+  font-size: 1rem; /* Adjust size here — try 0.9rem or 14px if too large */
+  cursor: pointer;
+  margin: 0 4px;
+  vertical-align: middle;
+}
 
 </style>
 </head>
@@ -440,21 +604,29 @@
       </div>
 
     </div>
-    <div class="main-content">
+
+    <!-- Modal Menu -->
+    <div class="modal_menu" id="modalMenu">
+      <div class="nav-bar">
+        <button class="close-btn" onclick="closeModal()">✖</button>
+        <a href="admin-welcome.html">welcome</a>
+        <a href="admin-ongoing.html">ongoing</a>
+        <a href="admin-result.html">result</a>
+        <a href="online.html">online</a>
+        <a href="set-time.html">setTime</a>
+      </div>
+    </div>
+
+    <div class="main-content" id="mainContent">
       <div class="upper">
         <div class="first-section">
-          <div class="modal_menu">
-            <div class="menu-bar">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            <div class="nav-bar">
-              <a href="admin-welcome.html">Welcome</a>
-              <a href="admin-ongoing.html" >ongoing</a>
-              <a href="admin-result.html">Result</a>
-              <a href="online.html">Online Exam</a>
-              <a href="set-time.html"> setTime</a> <!-- ✅ New link added -->
-            </div>
-          </div>
+
+      
+        <div class="menu-bar" onclick="openModal()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+          
+
           <div class="yetay-detail">
             <div class="logo">
               <img src="https://cdn.glitch.global/75a24ea2-773d-456a-8abd-1c76671f333c/yetay_white_logo.png?v=1748084558240" alt="Yetay Logo" />
@@ -467,21 +639,33 @@
           </div>
         </div>
 
-        <div class="second-section">
+        <div class="second-section" id="second-section">
           <div class="rounder">
-            <div class="rounder-text">Round <span class="no">1</span></div>
+            <div class="rounder-text">Round <span class="no" id="roundy"></span></div>
           </div>
-          <div class="per-score">
+
+          <div class="per-score" id="perScoreContainer">
             <p>Per score:</p>
-            <input type="text" id="perScore" value="1" />
+            <input type="text" id="perScore" value="_" />
             <div class="key-in">
-                <i class="fa-solid fa-square-check"></i>
+                <i class="fa-solid fa-square-check" onclick="perScore()"></i>
             </div>
           </div>
-          <div class="quiz-timer" id="quizTimer">Time: --:--</div>
+
+          <div class="per-time" id="perTimeContainer">
+            <p>Per Time:</p>
+            <input type="text" id="perTime" value="_" />
+            <div class="key-in">
+                <i class="fa-solid fa-square-check" onclick="perTime()"></i>
+            </div>
+          </div>
+          
+          <div class="quiz-timer" id="quizTimer">Time: <span class="detime">--:--</span></div>
+
         </div>
 
       </div>
+
 
       <div class="question-section">
         <div class="question-grid" id="question-grid">
@@ -507,8 +691,40 @@
           <div class="grid-btn"></div>
         </div>
         <div class=" quesion-view" id="question-view"></div>
-        <div class="answer-view" id="answer-view"></div>
-        <div class="scoreboard-view" id="scoreboard-view"></div>
+        <div class="time-up" id="time-up">
+          <h2>Time's Up!</h2>
+        </div>
+
+        <table id="scoreboard">
+          <thead>
+            <tr class="table-header">
+              <th>Name</th>
+              <th>Round 1</th>
+              <th>Total</th>
+              <th>Adjuster</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="score-row" data-participant="0">
+              <td>User 1</td>
+              <td class="round-score">-</td>
+              <td class="total-score">0</td>
+              <td class="adjuster-cell">
+                <span class="eye-toggle open-eye" data-open="false" onclick="toggleTools(this)">👁️</span>
+                <span class="eye-toggle closed-eye" style="display: none;" onclick="toggleTools(this)">🙈</span>
+
+                <div class="tools" style="display: none;">
+                  <span onclick="handlePlay()" class="tool-icon">▶️</span>
+                  <span onclick="handlePlus()" class="tool-icon">▶</span>
+                  <span onclick="handleMinus()" class="tool-icon">◀</span>
+                  <span onclick="handleRewind()" class="tool-icon">⏪</span>
+                </div>
+              </td>
+            </tr>
+            <!-- More rows will be added via JS -->
+          </tbody>
+        </table>
+
         <div class="button-group">
           <div class="bot hidden" id="confirm-btn" onclick="handleConfirm()">Confirm</div>
           <div class="bot hidden" id="answer-btn" onclick="handleSeeAnswer()">See Answer</div>
@@ -519,7 +735,7 @@
   </div>
 
 <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbyoL5_Wuef_TKE882CTQfLcBeVpyEThOTA_yVQ9IpayeThqDj3DoA9Vy6wpP8CkWDZ5/exec"; // your script URL here
+const scriptURL = "https://script.google.com/macros/s/AKfycbyoL5_Wuef_TKE882CTQfLcBeVpyEThOTA_yVQ9IpayeThqDj3DoA9Vy6wpP8CkWDZ5/exec"; // your script URL here
 const questionContainer = document.getElementById("question-view");
 const gridContainer = document.getElementById("question-grid");
 const confirmBtn = document.getElementById("confirm-btn");
@@ -527,13 +743,25 @@ const answerBtn = document.getElementById("answer-btn");
 const scoreboardBtn = document.getElementById("scoreboard-btn");
 const gridViewBtn = document.getElementById("grid-view");
 let currentQuestionIndex = null;
-
+let countdownInterval = null;
 let currentParticipant = null;
 let questions = [];
 let participants = [];
+let VperScore = null;
+let VperTime = null;
+let viewTimeup = false;
+let rounding = 5; // Default rounding value
+let currentRound = 1; // Default round
+let currentTotal = 0;
+let currentScore = 0;
+let currentRow = null;
+let currentScoreCells = [];
+let queCount = 0; // Count of questions loaded
 
 
 async function loadQuestions() {
+  loadParameters();
+
   try {
     const response = await fetch(scriptURL, {
       method: 'POST',
@@ -548,11 +776,13 @@ async function loadQuestions() {
     if (data.status === 'success') {
       questions = data.questions;
       participants = data.participants;
-
+      await tableCollate()
       loadParticipants(participants);
+      
 
       populateGrid(questions);
-
+      
+      document.getElementById("roundy").textContent  = currentRound > rounding ? "Extra" : currentRound;
     // Load hidden question views
     questionContainer.innerHTML = "";
 
@@ -577,11 +807,10 @@ async function loadQuestions() {
       `;
 
       questionContainer.appendChild(div);
+      
     });
-
+    
     // Show the button
-
-
     } else {
       alert("Failed to load questions: " + data.message);
     }
@@ -590,39 +819,253 @@ async function loadQuestions() {
   }
 }
 
+async function tableCollate() {
+  const scoreboard = document.getElementById("scoreboard");
+  const theadRow = scoreboard.querySelector("thead tr");
+  const tbody = scoreboard.querySelector("tbody");
+
+  // STEP 0: Fetch OTG data from backend
+  const payload = { action: "getOTG" };
+  let OTG = [];
+
+  try {
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json();
+    if (result.status === "success") {
+      OTG = result.data;
+    } else {
+      console.error("Failed to load OTG:", result.message);
+      return;
+    }
+  } catch (error) {
+    console.error("Fetch error loading OTG:", error);
+    return;
+  }
+
+  // STEP 1: Add additional round columns to header
+  for (let r = 2; r <= rounding; r++) {
+    const th = document.createElement("th");
+    th.className = "round-score";
+    th.textContent = `Round ${r}`;
+    theadRow.insertBefore(th, theadRow.children[theadRow.children.length - 2]);
+  
+  }
+
+  // STEP 2: Use the first row as a template, then remove it
+  const baseRow = tbody.querySelector("tr");
+  const template = baseRow.cloneNode(true);
+  tbody.removeChild(baseRow);
+
+  // STEP 3: Add missing round columns to template if needed
+  const roundScoreTDs = template.querySelectorAll(".round-score");
+  for (let r = roundScoreTDs.length + 1; r <= rounding; r++) {
+    const td = document.createElement("td");
+    td.className = "round-score";
+    td.textContent = "-";
+    template.insertBefore(td, template.children[template.children.length - 2]);
+  }
+
+  // STEP 4: Populate rows from OTG data
+  OTG.forEach((entry, i) => {
+    const [username, ...scores] = entry;
+    const row = template.cloneNode(true);
+    row.dataset.participant = i;
+
+    // Fill name
+    row.querySelector("td").textContent = username;
+
+    // Fill round scores
+    const roundCells = row.querySelectorAll(".round-score");
+    for (let r = 0; r < rounding; r++) {
+      const val = scores[r];
+      roundCells[r].textContent = val === "" || val === undefined ? "-" : val;
+    }
+
+    // Fill total score
+    const totalCell = row.querySelector(".total-score");
+    totalCell.textContent = scores[rounding] ?? "0";
+
+    // Setup eye toggle
+    const eyeIcon = row.querySelector(".eye-toggle");
+    eyeIcon.textContent = "👁️";
+    eyeIcon.dataset.open = "false";
+
+    tbody.appendChild(row);
+  });
+
+  // STEP 5: Eye toggle logic
+  const toggleEye = (icon) => {
+    const isOpen = icon.dataset.open === "true";
+    icon.textContent = isOpen ? "👁️" : "🙈";
+    icon.dataset.open = (!isOpen).toString();
+  };
+
+  scoreboard.querySelectorAll(".eye-toggle").forEach((icon) => {
+    icon.addEventListener("click", () => toggleEye(icon));
+  });
+
+  // ✅ STEP 6: Determine & set currentRound, currentParticipant, queCount
+  currentRound = null;
+  currentParticipant = null;
+  queCount = null;
+
+  const participantRows = [...tbody.querySelectorAll("tr")];
+  let found = false;
+
+  for (let r = 1; r <= rounding; r++) {
+    for (let i = 0; i < participantRows.length; i++) {
+      const row = participantRows[i];
+      const cells = row.querySelectorAll("td");
+      const roundCell = cells[r];
+
+      if (roundCell && roundCell.textContent.trim() === "-") {
+        currentRound = r;
+        currentParticipant = cells[0].textContent.trim();
+        queCount = i;
+        found = true;
+        break;
+      }
+    }
+    if (found) break;
+  }
+
+  // 🔁 All rounds are filled
+  if (!found) {
+    currentRound = rounding + 1;
+    const firstRow = participantRows[0];
+    currentParticipant = firstRow?.querySelector("td")?.textContent.trim() || null;
+    queCount = 0;
+  }
+
+  console.log({ currentRound, currentParticipant, queCount, rounding });
+}
+
+
 
 
 function loadParticipants(participants) {
   const partBox = document.getElementById("participant"); // adjust ID if needed
   partBox.innerHTML = ""; // clear previous
 
-  participants.forEach((p, i) => {
+  participants.forEach((p) => {
     const div = document.createElement("div");
     div.className = "f-box";
     div.textContent = p;
 
-    // First participant is selected by default
-    if (i === 0) {
-      currentParticipant = p;
+    // Highlight currentParticipant if matched
+    if (p === currentParticipant) {
       div.classList.add("current-participant");
     }
-
-    // Click event to update currentParticipant
-    div.addEventListener("click", () => {
-      currentParticipant = p;
-
-      // Remove current style from all
-      const allBoxes = partBox.querySelectorAll(".f-box");
-      allBoxes.forEach(box => box.classList.remove("current-participant"));
-
-      // Add style to clicked one
-      div.classList.add("current-participant");
-
-    });
 
     partBox.appendChild(div);
   });
 }
+
+function highlightCurrentParticipantRow() {
+  const table = document.getElementById("scoreboard");
+  const rows = table.querySelectorAll("tbody tr");
+
+  rows.forEach(row => {
+    // Remove previous highlight
+    row.classList.remove("highlighted");
+
+    // Hide tools and reset eye icons
+    const adjusterCell = row.querySelector(".adjuster-cell");
+    if (adjusterCell) {
+      const tools = adjusterCell.querySelector(".tools");
+      const openEye = adjusterCell.querySelector(".open-eye");
+      const closedEye = adjusterCell.querySelector(".closed-eye");
+
+      if (tools) tools.style.display = "none";
+      if (openEye) {
+        openEye.style.display = "inline-block";
+        openEye.dataset.open = "false";
+      }
+      if (closedEye) closedEye.style.display = "none";
+    }
+  });
+
+  // Highlight the correct row and extract scores
+  rows.forEach(row => {
+    const firstCell = row.querySelector("td");
+    if (firstCell && firstCell.textContent.trim() === currentParticipant) {
+      row.classList.add("highlighted");
+      currentRow = row;
+
+      // 🔹 Get all score cells (skip first column and total/adjuster columns)
+      const allCells = row.querySelectorAll("td");
+
+      currentScoreCells = [];
+
+      if (currentRound <= rounding) {
+        // 🔹 Collect score cells for rounds up to currentRound
+        allCells.forEach((cell, index) => {
+          if (index > 0 && index <= currentRound) {
+            currentScoreCells.push(cell);
+          }
+        });
+
+        // 🔹 Get score for current round (assumes round starts from column 2)
+        const roundCell = allCells[currentRound]; 
+        const rawScore = roundCell.textContent.trim();
+        currentScore = rawScore === "-" ? null : parseInt(rawScore);
+      } else {
+        // 🔸 Bypass scoring logic if currentRound > rounding
+        currentScore = 99;
+      }
+
+      // 🔹 Get total score (assume total is second-to-last cell)
+      const totalCell = allCells[allCells.length - 2];
+      // 🔹 Get total score
+      const rawTotal = totalCell.textContent.trim();
+      currentTotal = parseInt(rawTotal);
+
+      // 🔹 Show tools
+      const adjusterCell = row.querySelector(".adjuster-cell");
+      if (adjusterCell) {
+        const tools = adjusterCell.querySelector(".tools");
+        const openEye = adjusterCell.querySelector(".open-eye");
+        const closedEye = adjusterCell.querySelector(".closed-eye");
+
+        if (tools) tools.style.display = "flex";
+        if (openEye) openEye.style.display = "none";
+        if (closedEye) closedEye.style.display = "inline-block";
+
+        openEye.dataset.open = "true";
+        closedEye.dataset.open = "true";
+      }
+      // Optional scroll into view
+      // row.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
+}
+
+function moveToNextParticipant() {
+  const boxes = document.querySelectorAll("#participant .f-box");
+  const currentIndex = Array.from(boxes).findIndex(
+    box => box.classList.contains("current-participant")
+  );
+
+  // Remove current highlight
+  if (currentIndex !== -1) {
+    boxes[currentIndex].classList.remove("current-participant");
+  }
+
+  // Calculate next index with wrap-around
+  const nextIndex = (currentIndex + 1) % boxes.length;
+
+  // Highlight next participant
+  boxes[nextIndex].classList.add("current-participant");
+
+  // Update global currentParticipant
+  currentParticipant = boxes[nextIndex].textContent;
+}
+
 
 function populateGrid(questions) {
   gridContainer.innerHTML = "";
@@ -694,8 +1137,11 @@ function resetUnmarkedGrids(activeIndex) {
 
 async function handleConfirm() {
   // 1. Hide the grid view
+  viewTimeup = true;
   gridContainer.style.display = "none";
   questionContainer.style.display = "block";
+  startCountdown(VperTime); // assuming VperTime is already set (e.g., from sheet)
+
   // 4. Get current question object
   const currentQuestion = questions[currentQuestionIndex];
   markedGrid(currentQuestionIndex);
@@ -708,7 +1154,6 @@ async function handleConfirm() {
   // 8. Hide confirm button and show "See Answer"
   confirmBtn.classList.add('hidden');
   answerBtn.classList.remove('hidden');
-
 
   // 5. Save picked answer to backend
   try {
@@ -738,7 +1183,12 @@ async function handleConfirm() {
 
 function handleSeeAnswer() {
   const box = document.getElementById(`question-${currentQuestionIndex}`);
+  viewTimeup = false;
   if (!box) return;
+
+  document.getElementById("time-up").style.display = "none";
+
+  questionContainer.style.display = "block";
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -755,10 +1205,9 @@ function handleSeeAnswer() {
     return letter === correctLetter;
   });
 
-  if (correctOption) {
+  if (correctOption) {+
     correctOption.classList.add('correct-highlight');
   }
-
 
   // Hide See Answer button
   document.getElementById('answer-btn')?.classList.add('hidden');
@@ -766,14 +1215,14 @@ function handleSeeAnswer() {
   // Show Scoreboard & Grid buttons
   document.getElementById('scoreboard-btn')?.classList.remove('hidden');
 
+  document.getElementById("quizTimer").style.display = "none";
+  document.getElementById("perScoreContainer").style.display = "flex"; // Hide input field
+  document.getElementById("perTimeContainer").style.display = "none"; // Hide input field
+
 
 }
 
-
 function showScoreboard() {
-  const rounding = 5;
-  const per_score = 3;
-  let currentRound = 1;
 
   const currentBox = document.getElementById(`question-${currentQuestionIndex}`);
   if (currentBox) {
@@ -781,102 +1230,36 @@ function showScoreboard() {
   }
 
   questionContainer.style.display = "none";
+  highlightCurrentParticipantRow()
+  const scoreboardContainer = document.getElementById("scoreboard");
+  scoreboardContainer.style.display = "table";
 
-  const scoreboardContainer = document.getElementById("scoreboard-view");
-  scoreboardContainer.innerHTML = ""; // Clear previous content
-  scoreboardContainer.style.display = "block";
-
-  const table = document.createElement("table");
-  table.className = "scoreboard-table";
-
-  // Create table header
-  const header = document.createElement("tr");
-  for (let i = 1; i <= rounding; i++) {
-    const th = document.createElement("th");
-    th.textContent = `Round ${i}`;
-    header.appendChild(th);
-  }
-
-  const totalTh = document.createElement("th");
-  totalTh.textContent = "Total Score";
-  header.appendChild(totalTh);
-
-  const adjusterTh = document.createElement("th");
-  adjusterTh.textContent = "Adjuster";
-  header.appendChild(adjusterTh);
-
-  table.appendChild(header);
-
-  // Create table rows for each participant
-  console.log("Current Participant:", currentParticipant);
-  console.log("Participants:", participants);
-  participants.forEach(p => {
-    const tr = document.createElement("tr");
-    tr.dataset.name = p;
-
-    if (p === currentParticipant) {
-      tr.classList.add("highlighted-participant");
-    }
-
-    // Round score cells
-    for (let i = 0; i < rounding; i++) {
-      const td = document.createElement("td");
-      td.className = "score-cell";
-      td.innerHTML = `<div class="score-box" data-round="${i + 1}"></div>`;
-      tr.appendChild(td);
-    }
-
-    // Total score cell
-    const totalTd = document.createElement("td");
-    totalTd.className = "total-score";
-    totalTd.textContent = "0";
-    tr.appendChild(totalTd);
-
-    // Adjuster tools
-    const adjusterTd = document.createElement("td");
-    adjusterTd.className = "adjuster-cell";
-    if (p === currentParticipant) {
-      adjusterTd.innerHTML = `
-        <div class="adjuster-tools">
-          <i class="fa fa-eye"></i>
-          <i class="fa fa-play" onclick="adjustScore('${p}', ${currentRound}, ${per_score})"></i>
-        </div>
-      `;
-    }
-    tr.appendChild(adjusterTd);
-
-    table.appendChild(tr);
-  });
-
-  scoreboardContainer.appendChild(table);
+  
 
 
+  document.getElementById("second-section").style.display = "none"; // Hide second section
   // Hide See Answer button
   document.getElementById('scoreboard-btn')?.classList.add('hidden');
 
   // Show Scoreboard & Grid buttons
   document.getElementById('grid-view')?.classList.remove('hidden');
+
+  document.getElementById('grid-view')?.classList.add('disabled');
 }
 
 
-function adjustScore(name, round, score) {
-  const row = [...document.querySelectorAll("tr")].find(tr => tr.dataset.name === name);
-  if (!row) return;
 
-  const scoreBox = row.querySelector(`.score-box[data-round="${round}"]`);
-  if (scoreBox && scoreBox.textContent === "") {
-    scoreBox.textContent = score;
-    scoreBox.style.backgroundColor = "transparent"; // Makes it see-through
-
-    const totalCell = row.querySelector(".total-score");
-    let total = parseInt(totalCell.textContent) || 0;
-    totalCell.textContent = total + score;
-  }
-}
 
 
 function showGrid() {
-  const scoreboardContainer = document.getElementById("scoreboard-view");
+
+  queCount += 1;
+  if (queCount === participants.length) {
+    queCount = 0;
+    currentRound += 1;
+  }
+  document.getElementById("roundy").textContent  = currentRound > rounding ? "Extra" : currentRound;
+  const scoreboardContainer = document.getElementById("scoreboard");
   scoreboardContainer.style.display = "none";
   gridContainer.style.display = "grid";
 
@@ -885,7 +1268,338 @@ function showGrid() {
   confirmBtn.classList.remove('hidden');
   confirmBtn.classList.add('disabled');
 
+  document.getElementById("second-section").style.display = "flex";
+  document.getElementById("quizTimer").style.display = "none";
+  document.getElementById("perTimeContainer").style.display = "flex"; // Hide input field
+  document.getElementById("perScoreContainer").style.display = "none"; // Hide input field
+  
+  moveToNextParticipant(); // Move to next participant
+
   currentQuestionIndex = null;
+}
+
+
+async function perScore() {
+  const value = document.getElementById("perScore").value;
+
+  document.getElementById("quizTimer").style.display = "none";
+  document.getElementById("perTimeContainer").style.display = "flex"; // Hide input field
+  document.getElementById("perScoreContainer").style.display = "none"; // Hide input field
+
+  const payload = {
+    action: "sheetWrite",
+    columnName: "perScore",
+    value: value
+  };
+  VperScore = value; // Update global variable
+  try {
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+      console.log("perScore saved:", result);
+    } else {
+      console.error("Failed to save perScore:", result.message);
+    }
+  } catch (error) {
+    console.error("Error saving perScore:", error);
+  }
+}
+
+async function perTime() {
+  const value = document.getElementById("perTime").value;
+
+  document.getElementById("quizTimer").style.display = "none";
+  document.getElementById("perTimeContainer").style.display = "none"; // Hide input field
+  document.getElementById("perScoreContainer").style.display = "flex"; // Hide input field
+  
+  const payload = {
+    action: "sheetWrite",
+    columnName: "perTime",
+    value: value
+  };
+  VperTime = value;
+  try {
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+      console.log("perTimer saved:", result);
+    } else {
+      console.error("Failed to save perTimer:", result.message);
+    }
+  } catch (error) {
+    console.error("Error saving perTimer:", error);
+  }
+}
+
+async function loadParameters() {
+  const payload = { action: "getParameters" };
+  try {
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      headers: { "Content-Type": 'application/x-www-form-urlencoded'},
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+      const data = result.data;
+      console.log("Loaded parameters:", data);
+      document.getElementById("perScore").value = data.perScore;
+      document.getElementById("perTime").value = data.perTime;
+      VperScore = data.perScore;
+      VperTime = data.perTime;
+    } else {
+      console.error("Error loading parameters:", result.message);
+    }
+  } catch (err) {
+    console.error("Fetch error loading parameters:", err);
+  }
+}
+
+
+
+function startCountdown(durationMinutes) {
+  const timerDisplay = document.getElementById("quizTimer");
+  const timeSpan = timerDisplay.querySelector(".detime");
+  let timeLeft = durationMinutes * 60; // Convert to seconds
+
+  if (countdownInterval) clearInterval(countdownInterval); // Clear old timer if any
+
+  // Show timer
+  timerDisplay.style.display = "block";
+  document.getElementById("perScoreContainer").style.display = "none"; // Hide input field
+  document.getElementById("perTimeContainer").style.display = "none"; // Hide input field
+
+  // Update every second
+  countdownInterval = setInterval(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timeSpan.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval);
+      timeSpan.textContent = "00:00";
+      onCountdownEnd();
+    }
+
+    timeLeft--;
+  }, 1000);
+}
+
+function toggleTools(eyeIcon) {
+  const adjusterCell = eyeIcon.closest('.adjuster-cell');
+  const openEye = adjusterCell.querySelector('.open-eye');
+  const closedEye = adjusterCell.querySelector('.closed-eye');
+  const toolsDiv = adjusterCell.querySelector('.tools');
+
+  const isOpen = eyeIcon.dataset.open === "true";
+
+  if (isOpen) {
+    // Hide tools, show closed eye
+    toolsDiv.style.display = "none";
+    openEye.style.display = "inline-block";
+    closedEye.style.display = "none";
+
+    openEye.dataset.open = "false";
+    closedEye.dataset.open = "false";
+  } else {
+    // Show tools, show open eye
+    toolsDiv.style.display = "flex";
+    openEye.style.display = "none";
+    closedEye.style.display = "inline-block";
+
+    openEye.dataset.open = "true";
+    closedEye.dataset.open = "true";
+  }
+}
+
+
+function handlePlay() {
+  if (currentRound <= rounding) {
+    if (currentScore !== null) {
+      const roundCell = currentRow.querySelectorAll("td")[currentRound];
+      const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+      sendScoreUpdate(currentRow.rowIndex, currentRound, roundCell.textContent, totalCell.textContent);
+      hideTools();
+      return;
+    }
+
+    // Assign score to round cell
+    currentScore = VperScore;
+    const roundCell = currentRow.querySelectorAll("td")[currentRound];
+    roundCell.textContent = currentScore;
+
+    // Update total
+    currentTotal = currentTotal + VperScore;
+    const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+    totalCell.textContent = currentTotal;
+
+    // Send both round and total update
+    sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
+  } else {
+    currentTotal = currentTotal + VperScore;
+    const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+    totalCell.textContent = currentTotal;
+
+    // Send only total update
+    sendScoreUpdate(currentRow.rowIndex, -1, null, currentTotal);
+  }
+
+  hideTools();
+}
+
+
+function handleRewind() {
+  const roundCell = currentRow.querySelectorAll("td")[currentRound];
+  const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+
+  if (currentRound <= rounding) {
+    if (currentScore === null) {
+      currentScore = 0;
+      roundCell.textContent = currentScore;
+
+      sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, totalCell.textContent);
+      // No change to total
+    } else {
+      currentTotal = currentTotal - currentScore;
+      currentScore = 0;
+      roundCell.textContent = currentScore;
+      totalCell.textContent = currentTotal;
+      // Send update for both round and total
+      sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
+    }
+  }
+
+  else {
+      const roundCell = currentRow.querySelectorAll("td")[currentRound];
+      const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+      sendScoreUpdate(currentRow.rowIndex, currentRound, roundCell.textContent, totalCell.textContent);
+  }
+
+  hideTools();
+}
+
+async function sendScoreUpdate(rowIndex, roundIndex, roundScore, totalScore) {
+  const payload = {
+    action: "updateOTGScore",
+    row: rowIndex + 1, // +2 since Sheets are 1-indexed and row 1 is header
+    roundCol: roundIndex + 1,
+    roundScore,
+    totalCol: currentRow.cells.length - 1,
+    totalScore
+  };
+
+  try {
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    if (result.status === "success") {
+      console.log("Score update successful");
+    } else {
+      console.warn("Backend returned non-success status", result);
+    }
+  } catch (error) {
+    console.error("Score update failed", error);
+  }
+}
+
+
+function handlePlus() {
+  const roundCell = currentRow.querySelectorAll("td")[currentRound];
+  const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+
+  if (currentRound <= rounding) {
+    if (currentScore === null) currentScore = 0;
+    if (currentScore < VperScore) {
+      currentScore += 1;
+      roundCell.textContent = currentScore;
+      currentTotal += 1;
+      totalCell.textContent = currentTotal;
+    }
+    // tools remain visible
+  }
+
+  else {
+      currentTotal += 1;
+      totalCell.textContent = currentTotal;
+  }
+
+}
+
+function handleMinus() {
+  const roundCell = currentRow.querySelectorAll("td")[currentRound];
+  const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+
+
+  if (currentRound <= rounding) {
+    if (currentScore === null) currentScore = 0;
+    if (currentScore > 0) {
+      currentScore -= 1;
+      roundCell.textContent = currentScore;
+      currentTotal -= 1;
+      totalCell.textContent = currentTotal;
+    }
+  }
+  else {
+      currentTotal -= 1;
+      totalCell.textContent = currentTotal;
+  }
+  // tools remain visible
+}
+
+function hideTools() {
+  document.getElementById('grid-view')?.classList.remove('disabled');
+  const adjusterCell = currentRow.querySelector(".adjuster-cell");
+  if (adjusterCell) {
+    const tools = adjusterCell.querySelector(".tools");
+    const openEye = adjusterCell.querySelector(".open-eye");
+    const closedEye = adjusterCell.querySelector(".closed-eye");
+
+    if (tools) tools.style.display = "none";
+    if (openEye) openEye.style.display = "inline-block";
+    if (closedEye) closedEye.style.display = "none";
+
+    openEye.dataset.open = "false";
+    closedEye.dataset.open = "false";
+  }
+}
+
+
+function openModal() {
+  document.getElementById("modalMenu").style.display = "flex";
+  document.getElementById("mainContent").style.display = "none";
+}
+
+function closeModal() {
+  document.getElementById("modalMenu").style.display = "none";
+  document.getElementById("mainContent").style.display = "flex";
+}
+
+
+// Action when countdown finishes
+function onCountdownEnd() {
+  if (viewTimeup) {
+    document.getElementById("time-up").style.display = "block";
+    questionContainer.style.display = "none";
+  }
 }
 
   // Load questions on page load
