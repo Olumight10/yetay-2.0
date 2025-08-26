@@ -437,116 +437,77 @@
    Question Card Layout
 ===================== */
 .question-card {
-  background: #1d2f4d;
-  border-radius: 16px;
-  padding: 2rem;
+  background: #1b2742;
+  border-radius: 14px;
+  padding: 1.8rem;
   color: #f5f5f5;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(243, 195, 47, 0.3);
-  margin-bottom: 0.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+  transition: transform 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.question-card:hover {
+  transform: translateY(-3px);
+}
 
 /* =====================
    Question Title & Text
 ===================== */
-.question-head {
-  display: flex;
-  align-items: flex-start;  /* keeps the circle aligned with the top of the text */
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem;    /* space below each question block */
-}
-
 .question-label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 6px 10px;               
-  border-radius: 50%;              
-  background: linear-gradient(145deg, #2e4f8a, #213e6d);
-  color: #fff;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin: 0;
-  line-height: 1;
-  flex-shrink: 0;
-
-  min-width: 34px;
-  min-height: 34px;
-
-  border: 2px solid #F3C32F;   /* clean golden outline */
+  color: #F3C32F;
+  margin-bottom: 0.6rem;
 }
-
 
 .question-text {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.6;
-  color: #fff;
-  font-weight: bold;
-  margin: 0;
-}
-
-
-
-/* =====================
-   Options Wrapper
-===================== */
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  width: 90%;
-  margin: auto;
+  margin-bottom: 1.4rem;
+  color: #eaeaea;
+  font-weight: 400;
 }
 
 /* =====================
    MCQ Options
 ===================== */
 .option {
-  background: linear-gradient(145deg, #2e4f8a, #213e6d);
+  background: #24395e;
   border-radius: 10px;
-  padding: 0.5rem 1.2rem;
+  padding: 0.9rem 1.1rem;
   font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
+  font-weight: 500;
+  color: #f1f1f1;
   display: flex;
-  align-items: flex-start;
-  gap: 0.4rem;
-  border-left: 5px solid transparent;
-  transition: all 0.3s ease;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
   cursor: pointer;
+}
 
+.option:hover {
+  border-color: #F3C32F;
+  background: #2f4a78;
 }
 
 .option-letter {
-  font-weight: bold;
+  font-weight: 700;
   color: #F3C32F;
   flex-shrink: 0;
-  font-size: 1.05rem;
 }
 
-.option-text {
-  flex-grow: 1;
-}
-
-/* Correct Answer Highlight */
+/* Correct Answer Highlight (subtle & classy) */
 .correct-highlight {
-  border-left: 5px solid #F3C32F;   /* strong highlight */
-  border-top: 1px solid #F3C32F;
-  border-right: 1px solid #F3C32F;
-  border-bottom: 1px solid #F3C32F;
-
-  color: #F3C32F !important;
-  font-weight: 700;
-  border-radius: 10px; /* keep rounded shape consistent */
+  background: #2a3f65 !important;
+  border: 2px solid #3ddc97 !important;
+  color: #3ddc97 !important;
+  font-weight: 600;
 }
 
 .correct-highlight .option-letter {
-  color: #fff !important;
+  color: #3ddc97 !important;
 }
 
 /* =====================
@@ -556,36 +517,33 @@
   display: flex;
   gap: 1.2rem;
   justify-content: center;
-  width: 90%;
-  margin: auto;
 }
 
 .truefalse-option {
   flex: 1;
   text-align: center;
-  background: linear-gradient(145deg, #2e4f8a, #213e6d);
+  background: #24395e;
   border-radius: 8px;
-  padding: 0.9rem 1rem;
+  padding: 0.9rem;
   font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #f1f1f1;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
   cursor: pointer;
-  border: 2px solid transparent;
 }
 
 .truefalse-option:hover {
-  background: #385fa8;
   border-color: #F3C32F;
+  background: #2f4a78;
 }
 
+/* Correct highlight for True/False */
 .truefalse-option.correct-highlight {
-  background: #385fa8;
-  border-top: 1px solid #F3C32F;
-  border-right: 1px solid #F3C32F;
-  border-bottom: 1px solid #F3C32F;
-  border-left: 5px solid #F3C32F;
-  color: #fff !important;
+  border: 2px solid #3ddc97 !important;
+  background: #213a32 !important;
+  color: #3ddc97 !important;
+  font-weight: 600;
 }
 
 /* =====================
@@ -593,38 +551,39 @@
 ===================== */
 .fill-gap-placeholder {
   display: inline-block;
-  background: #213e6d;
-  border-radius: 50px;
   padding: 0.8rem 2rem;
   font-size: 1rem;
   font-style: italic;
   text-align: center;
-  color: #fff;
-  text-decoration: underline;
-  font-weight: bold;
-  border: 2px dashed #F3C32F;
-  margin-top: 0.7rem;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  color: #aaa;
+  background: #24395e;
+  border-radius: 12px;
+  border: 1px dashed #F3C32F;
+  margin-top: 0.8rem;
   transition: all 0.3s ease;
 }
 
+.fill-gap-placeholder.correct-answer {
+  color: #3ddc97;
+  font-weight: 600;
+  background: #1e2e48;
+  border: 2px solid #3ddc97;
+}
 
 /* =====================
    Reference Section
 ===================== */
 .reference {
-  margin-top: 1.2rem;
-  padding: 0.7rem;
-  border-radius: 10px;
+  margin-top: 1.3rem;
+  padding: 1rem;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
   border-left: 4px solid #F3C32F;
-  font-size: 0.95em;
-  color: #eee;
+  font-size: 0.95rem;
+  color: #dcdcdc;
+  font-style: italic;
   line-height: 1.5;
-  animation: fadeIn 0.4s ease;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+  animation: fadeIn 0.3s ease;
 }
 
 .reference strong {
@@ -642,6 +601,7 @@
 .hidden {
   display: none;
 }
+
 
 
 .time-up {
@@ -1002,15 +962,16 @@ async function loadQuestions() {
       } 
       else if (q["Type"] === "TrueFalse") {
         optionsHTML = `
-          <div class="truefalse-options">
+          <div class="options">
             ${["True", "False"].map(val => `
-              <div class="truefalse-option">
+              <div class="option">
+                <span class="option-letter">•</span>
                 <span class="option-text">${val}</span>
               </div>
             `).join('')}
           </div>
         `;
-      }
+      } 
       else if (q["Type"] === "FillGap") {
         optionsHTML = `
           <div class="options">
@@ -1021,10 +982,7 @@ async function loadQuestions() {
 
       div.innerHTML = `
         <div class="question-card">
-          <div class="question-head">
-            <p class="question-label">Q${i + 1}</p>
-            <p class="question-text">${q["Question Text"] || '[No Question]'}</p>
-          </div>
+          <p class="question-text"><strong>Q${i + 1}:</strong> ${q["Question Text"] || '[No Question]'}</p>
           ${optionsHTML}
           <div class="reference hidden">
             <p><strong>Answer:</strong> <span class="answer-text"></span></p>
@@ -1429,7 +1387,7 @@ async function handleConfirm() {
       box.querySelector(".reference-text").textContent = referenceText;
     } 
     else if (currentQuestion["Type"] === "TrueFalse") {
-      const correctOption = [...box.querySelectorAll('.truefalse-option')].find(option => {
+      const correctOption = [...box.querySelectorAll('.option')].find(option => {
         const text = (option.querySelector('.option-text')?.textContent?.trim() || "").toLowerCase();
         return text === String(correctAnswer).toLowerCase();
       });

@@ -360,16 +360,6 @@
 
 /* Shared button style */
 /* Group container aligned to the right */
-
-.btn-room{
-  display: flex;
-  justify-content: space-between;
-}
-
-#leader-btn{
-  margin-top: 10px;
-}
-
 .button-group {
   display: flex;
   justify-content: flex-end;
@@ -388,7 +378,6 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  -webkit-user-select: none; /* Safari */
   user-select: none;
 }
 
@@ -433,216 +422,65 @@
   }
 }
 
-/* =====================
-   Question Card Layout
-===================== */
 .question-card {
-  background: #1d2f4d;
-  border-radius: 16px;
-  padding: 2rem;
+  background: #213E6D;
+  border-radius: 12px;
+  padding: 1.5rem;
   color: #f5f5f5;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(243, 195, 47, 0.3);
-  margin-bottom: 0.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+  border-left: 6px solid #F3C32F;
 }
-
-
-/* =====================
-   Question Title & Text
-===================== */
-.question-head {
-  display: flex;
-  align-items: flex-start;  /* keeps the circle aligned with the top of the text */
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem;    /* space below each question block */
-}
-
-.question-label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 6px 10px;               
-  border-radius: 50%;              
-  background: linear-gradient(145deg, #2e4f8a, #213e6d);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 0;
-  line-height: 1;
-  flex-shrink: 0;
-
-  min-width: 34px;
-  min-height: 34px;
-
-  border: 2px solid #F3C32F;   /* clean golden outline */
-}
-
 
 .question-text {
-  font-size: 1.15rem;
-  line-height: 1.6;
-  color: #fff;
-  font-weight: bold;
-  margin: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #F3C32F;
+  font-weight: 600;
 }
 
-
-
-/* =====================
-   Options Wrapper
-===================== */
 .options {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  justify-content: center;
-  width: 90%;
-  margin: auto;
 }
 
-/* =====================
-   MCQ Options
-===================== */
 .option {
-  background: linear-gradient(145deg, #2e4f8a, #213e6d);
-  border-radius: 10px;
-  padding: 0.5rem 1.2rem;
+  background: #2e4f8a;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
   font-size: 1rem;
   font-weight: bold;
-  color: #fff;
+  color: white;
   display: flex;
   align-items: flex-start;
-  gap: 0.4rem;
+  gap: 0.5rem;
   border-left: 5px solid transparent;
-  transition: all 0.3s ease;
-  cursor: pointer;
-
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
+
 
 .option-letter {
   font-weight: bold;
   color: #F3C32F;
   flex-shrink: 0;
-  font-size: 1.05rem;
 }
 
 .option-text {
   flex-grow: 1;
 }
 
-/* Correct Answer Highlight */
-.correct-highlight {
-  border-left: 5px solid #F3C32F;   /* strong highlight */
-  border-top: 1px solid #F3C32F;
-  border-right: 1px solid #F3C32F;
-  border-bottom: 1px solid #F3C32F;
 
-  color: #F3C32F !important;
-  font-weight: 700;
-  border-radius: 10px; /* keep rounded shape consistent */
+.correct-highlight {
+  background-color: #F3C32F !important;
+  color: #213E6D !important;
+  font-weight: bold;
+  box-shadow: 0 0 8px #F3C32F;
 }
 
 .correct-highlight .option-letter {
-  color: #fff !important;
+  color: #213E6D !important;
 }
-
-/* =====================
-   True/False Options
-===================== */
-.truefalse-options {
-  display: flex;
-  gap: 1.2rem;
-  justify-content: center;
-  width: 90%;
-  margin: auto;
-}
-
-.truefalse-option {
-  flex: 1;
-  text-align: center;
-  background: linear-gradient(145deg, #2e4f8a, #213e6d);
-  border-radius: 8px;
-  padding: 0.9rem 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: 2px solid transparent;
-}
-
-.truefalse-option:hover {
-  background: #385fa8;
-  border-color: #F3C32F;
-}
-
-.truefalse-option.correct-highlight {
-  background: #385fa8;
-  border-top: 1px solid #F3C32F;
-  border-right: 1px solid #F3C32F;
-  border-bottom: 1px solid #F3C32F;
-  border-left: 5px solid #F3C32F;
-  color: #fff !important;
-}
-
-/* =====================
-   Fill-in-the-Gap
-===================== */
-.fill-gap-placeholder {
-  display: inline-block;
-  background: #213e6d;
-  border-radius: 50px;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  font-style: italic;
-  text-align: center;
-  color: #fff;
-  text-decoration: underline;
-  font-weight: bold;
-  border: 2px dashed #F3C32F;
-  margin-top: 0.7rem;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-
-/* =====================
-   Reference Section
-===================== */
-.reference {
-  margin-top: 1.2rem;
-  padding: 0.7rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid #F3C32F;
-  font-size: 0.95em;
-  color: #eee;
-  line-height: 1.5;
-  animation: fadeIn 0.4s ease;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.reference strong {
-  color: #F3C32F;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(5px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-/* =====================
-   Utility
-===================== */
-.hidden {
-  display: none;
-}
-
 
 .time-up {
   text-align: center;
@@ -757,6 +595,7 @@
     color: white;
   }
 
+
 </style>
 </head>
 <body>
@@ -788,7 +627,6 @@
         <a href="admin-result.html">result</a>
         <a href="online.html">online</a>
         <a href="set-time.html">setTime</a>
-        <a href="leaders.html">Leaders</a>
       </div>
     </div>
 
@@ -819,16 +657,16 @@
           </div>
 
           <div class="per-score" id="perScoreContainer">
-            <label for="perScore">Per score:</label>
-            <input type="text" id="perScore" value="_" title="Score per question" />
+            <p>Per score:</p>
+            <input type="text" id="perScore" value="_" />
             <div class="key-in">
                 <i class="fa-solid fa-square-check" onclick="perScore()"></i>
             </div>
           </div>
 
           <div class="per-time" id="perTimeContainer">
-            <label for="perTime">Per Time:</label>
-            <input type="text" id="perTime" value="_" title="Time per question" />
+            <p>Per Time:</p>
+            <input type="text" id="perTime" value="_" />
             <div class="key-in">
                 <i class="fa-solid fa-square-check" onclick="perTime()"></i>
             </div>
@@ -901,15 +739,11 @@
           </tbody>
         </table>
 
-        <div class="btn-room" id="btn-room">
-          <div class="bot hidden" id="leader-btn" onclick="handleLeaders()">Leaderboard</div>
-          <div class="emptyspace"></div>
-          <div class="button-group">
-            <div class="bot hidden" id="confirm-btn" onclick="handleConfirm()">Confirm</div>
-            <div class="bot hidden" id="answer-btn" onclick="handleSeeAnswer()">See Answer</div>
-            <div class="bot hidden" id="scoreboard-btn" onclick="showScoreboard()">Scoreboard</div>
-            <div class="bot hidden" id="grid-view" onclick="showGrid()">Grid View</div>
-          </div>
+        <div class="button-group">
+          <div class="bot hidden" id="confirm-btn" onclick="handleConfirm()">Confirm</div>
+          <div class="bot hidden" id="answer-btn" onclick="handleSeeAnswer()">See Answer</div>
+          <div class="bot hidden" id="scoreboard-btn" onclick="showScoreboard()">Scoreboard</div>
+          <div class="bot hidden" id="grid-view" onclick="showGrid()">Grid View</div>
         </div>
       </div>
   </div>
@@ -938,21 +772,11 @@ let currentScore = 0;
 let currentRow = null;
 let currentScoreCells = [];
 let queCount = 0; // Count of questions loaded
-const normalLimit = 50;   // how many questions to show in normal rounds
-const extraLimit  = 30;   // how many questions to show in extra/tiebreak rounds
-const roundSize   = 10;  // per normal round
 
 
 
 async function loadQuestions() {
   loadParameters();
-
-  const payload = {
-    action: 'getOnlineQuestions',
-    sheetId: "1_si663AVBrE35oiIgiMLepR7wuyyL_fiMmynGx-Vt5I", // Dynamic ID
-    questionSheet: "allType",  // Dynamic sheet for questions
-    participantSheet: "top-ten" // Dynamic sheet for participants
-  };  
 
   try {
     const response = await fetch(scriptURL, {
@@ -960,7 +784,7 @@ async function loadQuestions() {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ action: 'getOnlineQuestions' })
     });
 
     const data = await response.json();
@@ -972,24 +796,20 @@ async function loadQuestions() {
       loadParticipants(participants);
       
       populateGrid(questions);
-      if (currentRound > rounding) {
-        document.getElementById("leader-btn").classList.remove('hidden')
-      }
+      
       document.getElementById("roundy").textContent  = currentRound > rounding ? "Extra" : currentRound;
     // Load hidden question views
     questionContainer.innerHTML = "";
 
-    // Render questions dynamically
     questions.forEach((q, i) => {
       const div = document.createElement("div");
       div.classList.add("question-box");
       div.id = `question-${i}`;
-      div.style.display = "none"; // hidden initially
+      div.style.display = "none";
 
-      let optionsHTML = "";
-
-      if (q["Type"] === "MCQ") {
-        optionsHTML = `
+      div.innerHTML = `
+        <div class="question-card">
+          <p class="question-text"><strong>Q${i + 1}:</strong> ${q["Question Text"] || '[No Question]'}</p>
           <div class="options">
             ${['A', 'B', 'C', 'D'].map(letter => `
               <div class="option">
@@ -998,44 +818,13 @@ async function loadQuestions() {
               </div>
             `).join('')}
           </div>
-        `;
-      } 
-      else if (q["Type"] === "TrueFalse") {
-        optionsHTML = `
-          <div class="truefalse-options">
-            ${["True", "False"].map(val => `
-              <div class="truefalse-option">
-                <span class="option-text">${val}</span>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      }
-      else if (q["Type"] === "FillGap") {
-        optionsHTML = `
-          <div class="options">
-            <div class="fill-gap-placeholder">_____</div>
-          </div>
-        `;
-      }
-
-      div.innerHTML = `
-        <div class="question-card">
-          <div class="question-head">
-            <p class="question-label">Q${i + 1}</p>
-            <p class="question-text">${q["Question Text"] || '[No Question]'}</p>
-          </div>
-          ${optionsHTML}
-          <div class="reference hidden">
-            <p><strong>Answer:</strong> <span class="answer-text"></span></p>
-            <p><strong>Reference:</strong> <span class="reference-text"></span></p>
-          </div>
         </div>
       `;
 
       questionContainer.appendChild(div);
+      
     });
-
+    
     // Show the button
     } else {
       alert("Failed to load questions: " + data.message);
@@ -1127,7 +916,16 @@ async function tableCollate() {
     tbody.appendChild(row);
   });
 
-  // STEP 5: Eye toggle logic is handled by the `toggleTools` function called via onclick attributes in the HTML.
+  // STEP 5: Eye toggle logic
+  const toggleEye = (icon) => {
+    const isOpen = icon.dataset.open === "true";
+    icon.textContent = isOpen ? "👁️" : "🙈";
+    icon.dataset.open = (!isOpen).toString();
+  };
+
+  scoreboard.querySelectorAll(".eye-toggle").forEach((icon) => {
+    icon.addEventListener("click", () => toggleEye(icon));
+  });
 
   // ✅ STEP 6: Determine & set currentRound, currentParticipant, queCount
   currentRound = null;
@@ -1193,7 +991,7 @@ function highlightCurrentParticipantRow() {
     // Remove previous highlight
     row.classList.remove("highlighted");
 
-    // Reset tools + eyes
+    // Hide tools and reset eye icons
     const adjusterCell = row.querySelector(".adjuster-cell");
     if (adjusterCell) {
       const tools = adjusterCell.querySelector(".tools");
@@ -1209,13 +1007,44 @@ function highlightCurrentParticipantRow() {
     }
   });
 
-  // Highlight active participant row
+  // Highlight the correct row and extract scores
   rows.forEach(row => {
     const firstCell = row.querySelector("td");
     if (firstCell && firstCell.textContent.trim() === currentParticipant) {
       row.classList.add("highlighted");
+      currentRow = row;
 
-      // Open tools for this row
+      // 🔹 Get all score cells (skip first column and total/adjuster columns)
+      const allCells = row.querySelectorAll("td");
+
+      currentScoreCells = [];
+
+      if (currentRound <= rounding) {
+        // 🔹 Collect score cells for rounds up to currentRound
+        allCells.forEach((cell, index) => {
+          if (index > 0 && index <= currentRound) {
+            currentScoreCells.push(cell);
+          }
+        });
+
+        // 🔹 Get score for current round (assumes round starts from column 2)
+        const roundCell = allCells[currentRound]; 
+        const rawScore = roundCell.textContent.trim();
+        currentScore = rawScore === "-" ? null : parseInt(rawScore);
+      } else {
+        // 🔸 Bypass scoring logic if currentRound > rounding
+        const roundCell = allCells[allCells.length - 3]; 
+        const rawScore = roundCell.textContent.trim();
+        currentScore = rawScore === "-" ? 0 : parseInt(rawScore);
+      }
+
+      // 🔹 Get total score (assume total is second-to-last cell)
+      const totalCell = allCells[allCells.length - 2];
+      // 🔹 Get total score
+      const rawTotal = totalCell.textContent.trim();
+      currentTotal = parseInt(rawTotal);
+
+      // 🔹 Show tools
       const adjusterCell = row.querySelector(".adjuster-cell");
       if (adjusterCell) {
         const tools = adjusterCell.querySelector(".tools");
@@ -1229,10 +1058,11 @@ function highlightCurrentParticipantRow() {
         openEye.dataset.open = "true";
         closedEye.dataset.open = "true";
       }
+      // Optional scroll into view
+      // row.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   });
 }
-
 
 function moveToNextParticipant() {
   const boxes = document.querySelectorAll("#participant .f-box");
@@ -1262,43 +1092,30 @@ function populateGrid(questions) {
   confirmBtn.classList.remove('hidden');
   confirmBtn.classList.add('disabled');
 
-  // 🔑 Decide slice boundaries dynamically
-  let startIndex = 0;
-  let endIndex = normalLimit;
-
-  if (currentRound > rounding) {
-    startIndex = Math.max(questions.length - extraLimit, 0);
-    endIndex = questions.length;
-  }
-
-  const gridQuestions = questions.slice(startIndex, endIndex);
-
-  gridQuestions.forEach((q, idx) => {
-    const actualIndex = startIndex + idx; // map to full list index
-
+  questions.forEach((q, i) => {
     const gridBtn = document.createElement("div");
     gridBtn.className = "g-btn";
     gridBtn.setAttribute('role', 'button');
     gridBtn.setAttribute('tabindex', '0');
-    gridBtn.textContent = actualIndex + 1; // keep numbering consistent
-    gridBtn.dataset.index = actualIndex;
+    gridBtn.textContent = i + 1;
+    gridBtn.dataset.index = i;
 
     if (q.Picked_Ans) {
       gridBtn.onclick = () => {
-        currentQuestionIndex = actualIndex;
+        currentQuestionIndex = i;
         confirmBtn.classList.add('disabled'); 
-        resetUnmarkedGrids(actualIndex);
+        resetUnmarkedGrids(i);
       };
     } else {
       gridBtn.onclick = () => {
-        activateGrid(actualIndex);
+        activateGrid(i);
       };
     }
 
     gridContainer.appendChild(gridBtn);
 
     if (q.Picked_Ans) {
-      markedGrid(actualIndex); // mark green if answered
+      markedGrid(i); // mark green
     }
   });
 }
@@ -1306,41 +1123,35 @@ function populateGrid(questions) {
 
 function activateGrid(index) {
   // Reset only buttons that are NOT marked green
-  document.querySelectorAll(".g-btn").forEach((btn) => {
+  document.querySelectorAll(".g-btn").forEach((btn, i) => {
     const isMarked = btn.classList.contains("marked-green");
-    if (!isMarked && parseInt(btn.dataset.index, 10) !== index) {
+    if (!isMarked && i !== index) {
       btn.classList.remove("active-grid");
     }
   });
 
-  const btn = gridContainer.querySelector(`.g-btn[data-index="${index}"]`);
-  if (!btn) return; // safeguard
+  const btn = gridContainer.children[index];
   btn.classList.add("active-grid");
   currentQuestionIndex = index;
   confirmBtn.classList.remove("disabled");
 }
 
-
-
-
 function markedGrid(index) {
-  const btn = gridContainer.querySelector(`.g-btn[data-index="${index}"]`);
-  if (!btn) return; // safeguard
+  const btn = gridContainer.children[index];
   btn.classList.add("marked-green");
-  btn.classList.remove("active-grid"); // in case it's active
+  btn.classList.remove("active-grid"); // in case it's active, marked overrides it
 
   btn.onclick = () => {
     currentQuestionIndex = index;
-    confirmBtn.classList.add("disabled");
+    confirmBtn.classList.add("disabled"); 
     resetUnmarkedGrids(index);
   };
 }
 
-
+// Optional: Reset non-marked grids (used by picked ones to reset others)
 function resetUnmarkedGrids(activeIndex) {
-  document.querySelectorAll(".g-btn").forEach((btn) => {
-    const idx = parseInt(btn.dataset.index, 10);
-    if (!btn.classList.contains("marked-green") && idx !== activeIndex) {
+  document.querySelectorAll(".g-btn").forEach((btn, i) => {
+    if (!btn.classList.contains("marked-green") && i !== activeIndex) {
       btn.classList.remove("active-grid");
     }
   });
@@ -1349,42 +1160,36 @@ function resetUnmarkedGrids(activeIndex) {
 
 
 async function handleConfirm() {
-  // 1. Update UI for question view
+  // 1. Hide the grid view
   viewTimeup = true;
   gridContainer.style.display = "none";
   questionContainer.style.display = "block";
-  document.getElementById("leader-btn").classList.add('hidden')
-  // 2. Start the countdown timer
-  startCountdown(VperTime);
+  startCountdown(VperTime); // assuming VperTime is already set (e.g., from sheet)
 
-  // 3. Get current question and mark it as picked
+  // 4. Get current question object
   const currentQuestion = questions[currentQuestionIndex];
   markedGrid(currentQuestionIndex);
-  
-  // 4. Show the specific question card
+  // 3. Show only the current question
   const currentBox = document.getElementById(`question-${currentQuestionIndex}`);
   if (currentBox) {
     currentBox.style.display = "block";
   }
-  
-  // 5. Update local state
   currentQuestion.Picked_Ans = "yes";
-  
-  // 6. Toggle action buttons
+  // 8. Hide confirm button and show "See Answer"
   confirmBtn.classList.add('hidden');
   answerBtn.classList.remove('hidden');
-  const payload = {
-        action: 'updatePickedAns',
-        questionId: currentQuestion['Question ID'],
-        pickedAns: "yes",
-        sheetName: 'allType'
-  };
-  // 7. Save picked answer to the backend
+
+  // 5. Save picked answer to backend
   try {
     const updateResponse = await fetch(scriptURL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        action: 'updatePickedAns',
+        questionId: currentQuestion['Question ID'],
+        pickedAns: "yes",
+        sheetName: 'Online'
+      })
     });
 
     const updateData = await updateResponse.json();
@@ -1398,71 +1203,51 @@ async function handleConfirm() {
 
 }
 
-  // SEE ANSWER HANDLER
-  function handleSeeAnswer() {
-    const box = document.getElementById(`question-${currentQuestionIndex}`);
-    viewTimeup = false;
-    if (!box) return;
 
-    document.getElementById("time-up").style.display = "none";
-    document.getElementById("leader-btn").classList.add('hidden');
-    questionContainer.style.display = "block";
 
-    const currentQuestion = questions[currentQuestionIndex];
-    const correctAnswer = currentQuestion["Correct Answer"];
-    const referenceText = currentQuestion["Reference"] || "No reference provided.";
+function handleSeeAnswer() {
+  const box = document.getElementById(`question-${currentQuestionIndex}`);
+  viewTimeup = false;
+  if (!box) return;
 
-    // Reset all highlights
-    box.querySelectorAll('.option').forEach(option => {
-      option.classList.remove('correct-highlight');
-    });
+  document.getElementById("time-up").style.display = "none";
 
-    // Handle by type
-    if (currentQuestion["Type"] === "MCQ") {
-      const correctOption = [...box.querySelectorAll('.option')].find(option => {
-        const letter = option.querySelector('.option-letter')?.textContent?.trim().charAt(0);
-        return letter === correctAnswer;
-      });
-      if (correctOption) correctOption.classList.add('correct-highlight');
+  questionContainer.style.display = "block";
 
-      box.querySelector(".answer-text").textContent = correctAnswer;
-      box.querySelector(".reference-text").textContent = referenceText;
-    } 
-    else if (currentQuestion["Type"] === "TrueFalse") {
-      const correctOption = [...box.querySelectorAll('.truefalse-option')].find(option => {
-        const text = (option.querySelector('.option-text')?.textContent?.trim() || "").toLowerCase();
-        return text === String(correctAnswer).toLowerCase();
-      });
+  const currentQuestion = questions[currentQuestionIndex];
 
-      if (correctOption) correctOption.classList.add('correct-highlight');
-     
-      box.querySelector(".answer-text").textContent = correctAnswer;
-      box.querySelector(".reference-text").textContent = referenceText;
-    } 
-    else if (currentQuestion["Type"] === "FillGap") {
-      // Just show the missing word/phrase and reference
-      box.querySelector(".fill-gap-placeholder").textContent = correctAnswer;
-      box.querySelector(".answer-text").textContent = correctAnswer;
-      box.querySelector(".reference-text").textContent = referenceText;
-    }
+  const correctLetter = currentQuestion["Correct Answer"];
 
-    // Reveal answer/reference block
-    box.querySelector(".reference").classList.remove("hidden");
+  // Reset all option styles
+  box.querySelectorAll('.option').forEach(option => {
+    option.classList.remove('correct-highlight');
+  });
 
-    // Hide "See Answer" button
-    document.getElementById('answer-btn')?.classList.add('hidden');
+  // Highlight correct answer only
+  const correctOption = [...box.querySelectorAll('.option')].find(option => {
+    const letter = option.querySelector('.option-letter')?.textContent?.trim().charAt(0);
+    return letter === correctLetter;
+  });
 
-    // Show scoreboard controls
-    document.getElementById('scoreboard-btn')?.classList.remove('hidden');
-
-    document.getElementById("quizTimer").style.display = "none";
-    document.getElementById("perScoreContainer").style.display = "flex"; 
-    document.getElementById("perTimeContainer").style.display = "none"; 
+  if (correctOption) {+
+    correctOption.classList.add('correct-highlight');
   }
 
+  // Hide See Answer button
+  document.getElementById('answer-btn')?.classList.add('hidden');
+
+  // Show Scoreboard & Grid buttons
+  document.getElementById('scoreboard-btn')?.classList.remove('hidden');
+
+  document.getElementById("quizTimer").style.display = "none";
+  document.getElementById("perScoreContainer").style.display = "flex"; // Hide input field
+  document.getElementById("perTimeContainer").style.display = "none"; // Hide input field
+
+
+}
 
 function showScoreboard() {
-  document.getElementById("leader-btn").classList.add('hidden')
+
   const currentBox = document.getElementById(`question-${currentQuestionIndex}`);
   if (currentBox) {
     currentBox.style.display = "none";
@@ -1496,14 +1281,7 @@ function showGrid() {
   if (queCount === participants.length) {
     queCount = 0;
     currentRound += 1;
-    populateGrid(questions);
   }
-
-  if (currentRound > rounding) {
-    document.getElementById("leader-btn").classList.remove('hidden')
-  }
-
-
   document.getElementById("roundy").textContent  = currentRound > rounding ? "Extra" : currentRound;
   const scoreboardContainer = document.getElementById("scoreboard");
   scoreboardContainer.style.display = "none";
@@ -1522,8 +1300,6 @@ function showGrid() {
   moveToNextParticipant(); // Move to next participant
 
   currentQuestionIndex = null;
-
-
 }
 
 
@@ -1615,9 +1391,7 @@ async function loadParameters() {
   }
 }
 
-function handleLeaders() {
-  window.location.href = "leaders.html";
-}
+
 
 function startCountdown(durationMinutes) {
   const timerDisplay = document.getElementById("quizTimer");
@@ -1676,98 +1450,49 @@ function toggleTools(eyeIcon) {
 }
 
 
-
-function setRowContext(tool) {
-  currentRow = tool.closest("tr");
-  const allCells = currentRow.querySelectorAll("td");
-
-  const roundCell = (currentRound <= rounding)
-    ? allCells[currentRound]
-    : allCells[allCells.length - 3]; // fallback for totals
-
-  const totalCell = currentRow.querySelector(".total-score");
-
-  const rawScore = roundCell.textContent;
-  currentScore = rawScore === "-" ? null : parseInt(rawScore, 10);
-  currentTotal = parseInt(totalCell.textContent, 10) || 0;
-
-  return { roundCell, totalCell };
-}
-
-
-
-function handlePlay(tool) {
-  const { roundCell, totalCell } = setRowContext(tool);
-
+function handlePlay() {
   if (currentRound <= rounding) {
-    // Already played (score not null)
     if (currentScore !== null) {
-      sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
+      const roundCell = currentRow.querySelectorAll("td")[currentRound];
+      const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+      sendScoreUpdate(currentRow.rowIndex, currentRound, roundCell.textContent, totalCell.textContent);
       hideTools();
       return;
     }
 
-    // First time assigning score
+    // Assign score to round cell
     currentScore = VperScore;
+    const roundCell = currentRow.querySelectorAll("td")[currentRound];
     roundCell.textContent = currentScore;
 
-    currentTotal += VperScore;
+    // Update total
+    currentTotal = currentTotal + VperScore;
+    const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
     totalCell.textContent = currentTotal;
 
+    // Send both round and total update
     sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
   } else {
-    sendScoreUpdate(currentRow.rowIndex, rounding + 1, currentScore, currentTotal);
+      const roundCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 3];
+      const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+      sendScoreUpdate(currentRow.rowIndex, rounding + 1, roundCell.textContent, totalCell.textContent);
   }
 
   hideTools();
 }
 
 
-function handlePlus(tool) {
-  const { roundCell, totalCell } = setRowContext(tool);
+function handleRewind() {
+  const roundCell = currentRow.querySelectorAll("td")[currentRound];
+  const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
 
-  if (currentScore === null) {
-    // If unplayed, treat as starting from 0
-    currentScore = 0;
-  }
-
-  currentScore += 1;
-  roundCell.textContent = currentScore;
-
-  currentTotal += 1;
-  totalCell.textContent = currentTotal;
-
-  sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
-}
-
-
-function handleMinus(tool) {
-  const { roundCell, totalCell } = setRowContext(tool);
-
-  if (currentScore === null) {
-    return;
-  }
-
-  if (currentScore > 0) {
-    currentScore -= 1;
-    roundCell.textContent = currentScore;
-
-    currentTotal -= 1;
-    totalCell.textContent = currentTotal;
-  }
-
-  sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
-}
-
-
-function handleRewind(tool) {
-  const { roundCell, totalCell } = setRowContext(tool);
   if (currentRound <= rounding) {
     if (currentScore === null) {
       currentScore = 0;
       roundCell.textContent = currentScore;
-      sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
 
+      sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, totalCell.textContent);
+      // No change to total
     } else {
       currentTotal = currentTotal - currentScore;
       currentScore = 0;
@@ -1779,13 +1504,13 @@ function handleRewind(tool) {
   }
 
   else {
-    sendScoreUpdate(currentRow.rowIndex, currentRound, currentScore, currentTotal);
+      const roundCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 3];
+      const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+      sendScoreUpdate(currentRow.rowIndex, rounding + 1, roundCell.textContent, totalCell.textContent);
   }
 
   hideTools();
 }
-
-
 
 async function sendScoreUpdate(rowIndex, roundIndex, roundScore, totalScore) {
   const payload = {
@@ -1817,7 +1542,61 @@ async function sendScoreUpdate(rowIndex, roundIndex, roundScore, totalScore) {
   }
 }
 
+function handlePlus() {
 
+
+  if (currentRound <= rounding) {
+    const roundCell = currentRow.querySelectorAll("td")[currentRound];
+    const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+    if (currentScore === null) currentScore = 0;
+    if (currentScore < VperScore) {
+      currentScore += 1;
+      roundCell.textContent = currentScore;
+      currentTotal += 1;
+      totalCell.textContent = currentTotal;
+    }
+    // tools remain visible
+  }
+
+  else {
+    const roundCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 3];
+    const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+
+    currentScore += 1;
+    roundCell.textContent = currentScore;
+
+    currentTotal += 1;
+    totalCell.textContent = currentTotal;
+  }
+}
+
+
+function handleMinus() {
+  const roundCell = currentRow.querySelectorAll("td")[currentRound];
+  const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+
+
+  if (currentRound <= rounding) {
+    if (currentScore === null) currentScore = 0;
+    if (currentScore > 0) {
+      currentScore -= 1;
+      roundCell.textContent = currentScore;
+      currentTotal -= 1;
+      totalCell.textContent = currentTotal;
+    }
+  }
+  else {
+    const roundCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 3];
+    const totalCell = currentRow.querySelectorAll("td")[currentRow.cells.length - 2];
+
+    currentScore -= 1;
+    roundCell.textContent = currentScore;
+
+    currentTotal -= 1;
+    totalCell.textContent = currentTotal;
+  }
+  // tools remain visible
+}
 
 function hideTools() {
   document.getElementById('grid-view')?.classList.remove('disabled');
