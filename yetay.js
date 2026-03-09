@@ -164,3 +164,49 @@ function filterParticipants() {
 
   displayParticipants(filtered);
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    // Mobile Menu Toggle
+    menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        // Toggle icon between bars and times (X)
+        const icon = menuBtn.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking a link (useful for one-page feel)
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    // Mobile Menu Toggle
+    menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        // Toggle icon between bars and times (X)
+        const icon = menuBtn.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+
+    // Close menu when clicking a link (useful for one-page feel)
+    const links = document.querySelectorAll('.nav-links a');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    });
+});
