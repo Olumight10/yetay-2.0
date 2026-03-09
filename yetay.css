@@ -598,3 +598,82 @@ h2 { font-size: 2.8rem; color: var(--primary-blue); font-weight: 800; }
     transform: scale(1.1);
     color: var(--primary-blue); /* Color shift on hover */
 }
+
+/* Mobile Optimization & Menu Fix */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block; /* Show the hamburger */
+        z-index: 2001;
+    }
+
+    .nav-links {
+        display: none; /* Hide by default */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Sits right under the navbar */
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        text-align: center;
+        gap: 20px;
+        border-bottom: 2px solid var(--accent-gold);
+    }
+
+    /* When JS toggles this class, the menu appears */
+    .nav-links.active {
+        display: flex;
+    }
+
+    /* Hero Mobile Fixes */
+    .hero {
+        height: auto;
+        min-height: 80vh;
+        padding: 120px 20px 60px; /* More top padding so it doesn't hide under nav */
+        background-attachment: scroll; /* Parallax is buggy on mobile, so we disable it */
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .hero-logo {
+        width: 120px;
+    }
+
+    .hero-sub {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        padding: 5px 15px;
+    }
+
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .hero-btns a {
+        width: 100%;
+    }
+
+    .cta-primary, .cta-secondary {
+        width: 100%;
+        margin-left: 0 !important;
+        padding: 14px;
+    }
+
+    /* Gallery Mobile Fixes */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hero-content {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 2;
+}
